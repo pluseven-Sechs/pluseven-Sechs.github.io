@@ -975,7 +975,7 @@ pre .javascript .function {
 }
 .brand {
   border-bottom: none;
-  color: var(--brand-color);
+  color: #000;
   display: inline-block;
   line-height: 1.375em;
   padding: 0 40px;
@@ -991,7 +991,7 @@ pre .javascript .function {
   margin: 0;
 }
 .site-subtitle {
-  color: #ddd;
+  color: #000;
   font-size: 0.8125em;
   margin: 10px 0;
 }
@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f6b0ff;
+  background: #504646;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2337,7 +2337,8 @@ ul.breadcrumb li + li:last-child {
   }
 }
 .site-brand-container {
-  background: #222;
+  background: url("/images/site-brand.png");
+  background-size: contain;
 }
 @media (max-width: 991px) {
   .site-brand-container {
@@ -2571,7 +2572,7 @@ body {
   color: #800;
 }
 .sidebar {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .header-inner {
   background: rgba(255,255,255,0.7);
@@ -2580,5 +2581,8 @@ body {
   opacity: 0.8;
 }
 .main-inner {
-  opacity: 0.7;
+  opacity: 0.8;
+}
+.avatar {
+  opacity: 1;
 }
