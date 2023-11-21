@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #4055ff;
+  background: #e8ff26;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2343,6 +2343,7 @@ ul.breadcrumb li + li:last-child {
 }
 @media (max-width: 991px) {
   .site-brand-container {
+    z-index: 99999;
     background: url("/images/site-mobile-brand.png") #222;
     background-size: contain;
   }
