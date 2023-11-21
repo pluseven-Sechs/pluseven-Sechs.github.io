@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c9d9aa;
+  background: #cfff7d;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2344,6 +2344,12 @@ ul.breadcrumb li + li:last-child {
 @media (max-width: 991px) {
   .site-brand-container {
     box-shadow: 0 0 16px rgba(0,0,0,0.5);
+    background: url("/images/site-mobile-brand.png") #222;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .site-brand-container {
+    background-size: cover; /* 或者设置其他你想要的大小值 */
   }
 }
 .site-meta {
