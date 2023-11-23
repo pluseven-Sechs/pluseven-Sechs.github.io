@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #e8ff26;
+  background: #b538ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2552,7 +2552,7 @@ ul.breadcrumb li + li:last-child {
   padding: 0;
 }
 body {
-  background: url("/images/background.jpg");
+  background: url("/images/background3.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -2575,13 +2575,13 @@ body {
   color: #800;
 }
 .sidebar {
-  opacity: 1;
+  opacity: 0.9;
 }
 .header-inner {
   background: rgba(255,255,255,0.7);
 }
 .popup {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 .main-inner {
   opacity: 0.8;
