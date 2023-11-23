@@ -245,8 +245,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在概率论中, 我们研究的随机变量具有已知的分布, 研究的目的是刻画它的规律;<br>在数理统计中, 我们研究的随机变量具有未知的分布 (或者部分未知), 通过重复独立的观察, 得到许多观察值, 对这些数据进行分析来总结规律,最终目的是对所研究的随机变量的分布作出推断。</p>
-<span id="more"></span>
+        <p>在概率论中, 我们研究的随机变量具有已知的分布, 研究的目的是刻画它的规律;<br>在数理统计中, 我们研究的随机变量具有未知的分布 (或者部分未知), 通过重复独立的观察, 得到许多观察值, 对这些数据进行分析来总结规律,最终目的是对所研究的随机变量的分布作出推断。<br><span id="more"></span></p>
 <h1 id="一、随机样本"><a href="#一、随机样本" class="headerlink" title="一、随机样本"></a>一、随机样本</h1><h2 id="1-总体"><a href="#1-总体" class="headerlink" title="1. 总体"></a>1. 总体</h2><h3 id="（1）定义"><a href="#（1）定义" class="headerlink" title="（1）定义"></a>（1）定义</h3><p>我们将试验的全部可能的观察值称为总体, 每一个可能观察值称为个体。总体中所包含的个体数目称为总体的容量; 容量为有限的称为有限总体, 容量为无限的称为无限总体。</p>
 <h3 id="（2）举例"><a href="#（2）举例" class="headerlink" title="（2）举例"></a>（2）举例</h3><p>考察某大学一年级共 2000 名男生的身高, 每个男生的身高是一个可能观察值, 所形成的总体容量为 2000, 是一个有限总体。<br>观察某一地点每天的最高气温, 该总体是无限总体。<br>考察全国正在使用某种型号灯泡的寿命所形成的总体, 由于可能观察值的个数很多, 可以认为是无限总体。（有限总体容量过大, 近似认为是无限总体</p>
 <h3 id="（3）与概率论联系起来（理想与现实"><a href="#（3）与概率论联系起来（理想与现实" class="headerlink" title="（3）与概率论联系起来（理想与现实"></a>（3）与概率论联系起来（理想与现实</h3><p>总体中的每一个个体是随机试验的一个观察值, 因此它是某一随机变量的值。<br>因此, 我们可以认为总体对应随机变量，今后近似认为二者等同，总体对应的随机变量的分布函数和数字特征就是总体的分布函数和数字特征。<br>理想中我们对每个个体进行检测，但实际上，比如检测灯泡是不可能每个都检测的，通常从总体中抽取一部分个体, 根据获得的数据来推断总体分布。</p>
@@ -379,13 +378,15 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
 </div>
@@ -428,12 +429,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">14k</span>
+    <span title="站点总字数">16k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">25 分钟</span>
+    <span title="站点阅读时长">30 分钟</span>
 </div>
 
 <!--
@@ -532,6 +533,63 @@ setInterval("createtime()",250);
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'true';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

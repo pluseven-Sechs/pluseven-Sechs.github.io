@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b538ff;
+  background: #cc5e0d;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1972,6 +1972,8 @@ pre .javascript .function {
 }
 .category-all-page .category-all-title {
   text-align: center;
+  font-size: 24px;
+  color: #fff;
 }
 .category-all-page .category-all {
   margin-top: 20px;
@@ -1983,9 +1985,16 @@ pre .javascript .function {
 }
 .category-all-page .category-list-item {
   margin: 5px 10px;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
 }
 .category-all-page .category-list-count {
-  color: #bbb;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+.category-all-page .category-list-count:hover {
+  transform: scale(1.1);
 }
 .category-all-page .category-list-count::before {
   content: ' (';
@@ -2248,6 +2257,13 @@ ul.breadcrumb li + li:last-child {
 .search-popup #no-result {
   color: #ccc;
   margin: auto;
+}
+mjx-container[jax="CHTML"][display="true"],
+.has-jax {
+  overflow: auto hidden;
+}
+mjx-container + br {
+  display: none;
 }
 .header {
   margin: 0 auto;
