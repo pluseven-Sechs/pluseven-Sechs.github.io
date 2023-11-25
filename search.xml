@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>毛概笔记和题目</title>
-    <url>/%E6%AF%9B%E6%A6%82%E7%AC%94%E8%AE%B0%E5%92%8C%E9%A2%98%E7%9B%AE/</url>
-    <content><![CDATA[<iframe src='/myjs/pdfjs/web/viewer.html?file= pdf/毛概笔记和习题.pdf ' style='width:100%;height:800px'></iframe>
-]]></content>
+    <title>Lab1-TCP/IP</title>
+    <url>/Lab1-TCP-IP/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>A Guide to Religion in Jane Eyre</title>
@@ -91,6 +90,11 @@ almost my hope of heaven. He stood between me and every thought of religion, as 
 ]]></content>
   </entry>
   <entry>
+    <title>概率论 题目</title>
+    <url>/%E6%A6%82%E7%8E%87%E8%AE%BA-%E9%A2%98%E7%9B%AE/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>Chapter 3 Data-link layer</title>
     <url>/Chapter-3-Data-link-layer/</url>
     <content><![CDATA[<p>数据链路层的功能：<br>1.向网络层提供一个定义良好的服务接口。<br>2.Framing 成帧（边界控制<br>3.处理传输错误。（错误控制）<br>4.调节数据流，确保慢速的接收方不会被快速的发送方淹没。（流量控制）<br><span id="more"></span><br>数据链路层从网络层获得数据包，然后将数据包封装成帧（frame）传输，每个帧包含一个帧头、一个有效载荷（用于存放数据包）以及一个帧尾。<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://z1.ax1x.com/2023/11/01/pinHFFx.png" alt="Frame"></p>
@@ -148,6 +152,17 @@ almost my hope of heaven. He stood between me and every thought of religion, as 
 <script type="math/tex; mode=display">信道吞吐率 = 信道利用率 \times 发送方发送速率</script><h2 id="3-3-3-滑动窗口协议"><a href="#3-3-3-滑动窗口协议" class="headerlink" title="3.3.3 滑动窗口协议"></a>3.3.3 滑动窗口协议</h2><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>]]></content>
   </entry>
   <entry>
+    <title>数理统计</title>
+    <url>/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/</url>
+    <content><![CDATA[<p>在概率论中, 我们研究的随机变量具有已知的分布, 研究的目的是刻画它的规律;<br>在数理统计中, 我们研究的随机变量具有未知的分布 (或者部分未知), 通过重复独立的观察, 得到许多观察值, 对这些数据进行分析来总结规律,最终目的是对所研究的随机变量的分布作出推断。<br><span id="more"></span></p>
+<h1 id="一、随机样本"><a href="#一、随机样本" class="headerlink" title="一、随机样本"></a>一、随机样本</h1><h2 id="1-总体"><a href="#1-总体" class="headerlink" title="1. 总体"></a>1. 总体</h2><h3 id="（1）定义"><a href="#（1）定义" class="headerlink" title="（1）定义"></a>（1）定义</h3><p>我们将试验的全部可能的观察值称为总体, 每一个可能观察值称为个体。总体中所包含的个体数目称为总体的容量; 容量为有限的称为有限总体, 容量为无限的称为无限总体。</p>
+<h3 id="（2）举例"><a href="#（2）举例" class="headerlink" title="（2）举例"></a>（2）举例</h3><p>考察某大学一年级共 2000 名男生的身高, 每个男生的身高是一个可能观察值, 所形成的总体容量为 2000, 是一个有限总体。<br>观察某一地点每天的最高气温, 该总体是无限总体。<br>考察全国正在使用某种型号灯泡的寿命所形成的总体, 由于可能观察值的个数很多, 可以认为是无限总体。（有限总体容量过大, 近似认为是无限总体</p>
+<h3 id="（3）与概率论联系起来（理想与现实"><a href="#（3）与概率论联系起来（理想与现实" class="headerlink" title="（3）与概率论联系起来（理想与现实"></a>（3）与概率论联系起来（理想与现实</h3><p>总体中的每一个个体是随机试验的一个观察值, 因此它是某一随机变量的值。<br>因此, 我们可以认为总体对应随机变量，今后近似认为二者等同，总体对应的随机变量的分布函数和数字特征就是总体的分布函数和数字特征。<br>理想中我们对每个个体进行检测，但实际上，比如检测灯泡是不可能每个都检测的，通常从总体中抽取一部分个体, 根据获得的数据来推断总体分布。</p>
+<h2 id="2-样本"><a href="#2-样本" class="headerlink" title="2. 样本"></a>2. 样本</h2><h1 id="二、抽样分布"><a href="#二、抽样分布" class="headerlink" title="二、抽样分布"></a>二、抽样分布</h1><p>样本是进行统计推断的依据. 在实际应用中, 往往不是直接使用样本本身, 而是针对不同问题构造样本的适当函数, 利用这些样本的函数进行统计推断</p>
+<h2 id="1-统计量"><a href="#1-统计量" class="headerlink" title="1. 统计量"></a>1. 统计量</h2><h3 id="（1）定义-1"><a href="#（1）定义-1" class="headerlink" title="（1）定义"></a>（1）定义</h3><p>设$𝑋_1, . . . , 𝑋_𝑛$是来自总体 𝑋 的一个样本, 𝑔 是$𝑋_1, . . . , 𝑋_𝑛$的函数, 若𝑔 中<strong>不含未知参数（能算，才叫统计量</strong>, 则称 $𝑔(𝑋_1, . . . , 𝑋_𝑛)$是一个统计量. (统计量是随机变量.) 设 $(𝑥_1, . . . , 𝑥_𝑛)$是 $𝑋_1, . . . , 𝑋_𝑛$ 的样本值, 则称 $𝑔(𝑥_1, . . . , 𝑥_𝑛)$ 是 $𝑔(𝑋_1, . . . , 𝑋_𝑛)$ 的观察值</p>
+]]></content>
+  </entry>
+  <entry>
     <title>第一章 数制与码制</title>
     <url>/%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%95%B0%E5%88%B6%E4%B8%8E%E7%A0%81%E5%88%B6/</url>
     <content><![CDATA[<h1 id="数码"><a href="#数码" class="headerlink" title="数码"></a>数码</h1><p>数字电路所处理的各种数字信号的形式就是数码。</p>
@@ -192,25 +207,20 @@ $$\begin{aligned}& = 1×8^1+2×8^0+4×8^{-1} \\& = （10.5）_{10}\end{aligned}<
 ]]></content>
   </entry>
   <entry>
-    <title>概率论 题目</title>
-    <url>/%E6%A6%82%E7%8E%87%E8%AE%BA-%E9%A2%98%E7%9B%AE/</url>
+    <title>第四章-组合逻辑电路</title>
+    <url>/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>毛概笔记和题目</title>
+    <url>/%E6%AF%9B%E6%A6%82%E7%AC%94%E8%AE%B0%E5%92%8C%E9%A2%98%E7%9B%AE/</url>
+    <content><![CDATA[<iframe src='/myjs/pdfjs/web/viewer.html?file= pdf/毛概笔记和习题.pdf ' style='width:100%;height:800px'></iframe>
+]]></content>
   </entry>
   <entry>
     <title>第三章 门电路</title>
     <url>/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E9%97%A8%E7%94%B5%E8%B7%AF/</url>
     <content><![CDATA[<h1 id="一、-门电路概述"><a href="#一、-门电路概述" class="headerlink" title="一、 门电路概述"></a>一、 门电路概述</h1><p>实现逻辑运算的单元电路</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>数理统计</title>
-    <url>/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/</url>
-    <content><![CDATA[<p>在概率论中, 我们研究的随机变量具有已知的分布, 研究的目的是刻画它的规律;<br>在数理统计中, 我们研究的随机变量具有未知的分布 (或者部分未知), 通过重复独立的观察, 得到许多观察值, 对这些数据进行分析来总结规律,最终目的是对所研究的随机变量的分布作出推断。<br><span id="more"></span></p>
-<h1 id="一、随机样本"><a href="#一、随机样本" class="headerlink" title="一、随机样本"></a>一、随机样本</h1><h2 id="1-总体"><a href="#1-总体" class="headerlink" title="1. 总体"></a>1. 总体</h2><h3 id="（1）定义"><a href="#（1）定义" class="headerlink" title="（1）定义"></a>（1）定义</h3><p>我们将试验的全部可能的观察值称为总体, 每一个可能观察值称为个体。总体中所包含的个体数目称为总体的容量; 容量为有限的称为有限总体, 容量为无限的称为无限总体。</p>
-<h3 id="（2）举例"><a href="#（2）举例" class="headerlink" title="（2）举例"></a>（2）举例</h3><p>考察某大学一年级共 2000 名男生的身高, 每个男生的身高是一个可能观察值, 所形成的总体容量为 2000, 是一个有限总体。<br>观察某一地点每天的最高气温, 该总体是无限总体。<br>考察全国正在使用某种型号灯泡的寿命所形成的总体, 由于可能观察值的个数很多, 可以认为是无限总体。（有限总体容量过大, 近似认为是无限总体</p>
-<h3 id="（3）与概率论联系起来（理想与现实"><a href="#（3）与概率论联系起来（理想与现实" class="headerlink" title="（3）与概率论联系起来（理想与现实"></a>（3）与概率论联系起来（理想与现实</h3><p>总体中的每一个个体是随机试验的一个观察值, 因此它是某一随机变量的值。<br>因此, 我们可以认为总体对应随机变量，今后近似认为二者等同，总体对应的随机变量的分布函数和数字特征就是总体的分布函数和数字特征。<br>理想中我们对每个个体进行检测，但实际上，比如检测灯泡是不可能每个都检测的，通常从总体中抽取一部分个体, 根据获得的数据来推断总体分布。</p>
-<h2 id="2-样本"><a href="#2-样本" class="headerlink" title="2. 样本"></a>2. 样本</h2><h1 id="二、抽样分布"><a href="#二、抽样分布" class="headerlink" title="二、抽样分布"></a>二、抽样分布</h1><p>样本是进行统计推断的依据. 在实际应用中, 往往不是直接使用样本本身, 而是针对不同问题构造样本的适当函数, 利用这些样本的函数进行统计推断</p>
-<h2 id="1-统计量"><a href="#1-统计量" class="headerlink" title="1. 统计量"></a>1. 统计量</h2><h3 id="（1）定义-1"><a href="#（1）定义-1" class="headerlink" title="（1）定义"></a>（1）定义</h3><p>设$𝑋_1, . . . , 𝑋_𝑛$是来自总体 𝑋 的一个样本, 𝑔 是$𝑋_1, . . . , 𝑋_𝑛$的函数, 若𝑔 中<strong>不含未知参数（能算，才叫统计量</strong>, 则称 $𝑔(𝑋_1, . . . , 𝑋_𝑛)$是一个统计量. (统计量是随机变量.) 设 $(𝑥_1, . . . , 𝑥_𝑛)$是 $𝑋_1, . . . , 𝑋_𝑛$ 的样本值, 则称 $𝑔(𝑥_1, . . . , 𝑥_𝑛)$ 是 $𝑔(𝑋_1, . . . , 𝑋_𝑛)$ 的观察值</p>
 ]]></content>
   </entry>
   <entry>
@@ -220,10 +230,5 @@ $$\begin{aligned}& = 1×8^1+2×8^0+4×8^{-1} \\& = （10.5）_{10}\end{aligned}<
       <categories>
         <category>计算机网络</category>
       </categories>
-  </entry>
-  <entry>
-    <title>第四章-组合逻辑电路</title>
-    <url>/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
