@@ -474,6 +474,8 @@ A,B是某随机试验中的两个事件，称事件A在“事件B已发生”这
     <title>Lab2 Ethernet</title>
     <url>/Lab2-Ethernet/</url>
     <content><![CDATA[<h1 id="理论知识">理论知识</h1>
+<p>ICMP（Internet Control Message Protocol
+Internet控制消息协议，用于差错管理和测试Internet，每一种消息类型都被封装在一个IP数据包中。</p>
 <h1 id="实验内容">实验内容</h1>
 <h2 id="ping测试">Ping测试</h2>
 <p>1.win+R 输入cmd打开命令行，ping任意网站（这里以baidu.com为例 2.</p>
