@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffa6c9;
+  background: #85e9f1;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2354,13 +2354,13 @@ mjx-container + br {
   }
 }
 .site-brand-container {
-  background: url("/images/site-brand.png");
+  background: url("/images/site-brand.webp");
   background-size: contain;
 }
 @media (max-width: 991px) {
   .site-brand-container {
     z-index: 99999;
-    background: url("/images/site-mobile-brand.png");
+    background: url("/images/site-mobile-brand.webp");
     background-size: contain;
   }
 }
@@ -2569,7 +2569,7 @@ mjx-container + br {
 }
 /* 默认样式 */
 body {
-  background: url("/images/background3.jpg");
+  background: url("/images/background3.webp");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
