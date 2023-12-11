@@ -238,7 +238,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>548</span>
+              <span>540</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -273,7 +273,14 @@ alt="编码格式" />
 <img src="https://z1.ax1x.com/2023/12/11/piRjclt.png"
 alt="下一章" /></p>
 <h1 id="需要用到的库文件">需要用到的库文件</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">from bs4 import BeautifulSoup   #网页解析，数据获取</span><br><span class="line">from docx import Document		#操作Word的.docx文档</span><br><span class="line">import re                       #正则表达式，文字匹配</span><br><span class="line">import requests					#根据指定url获取网页数据</span><br><span class="line">from requests.adapters import HTTPAdapter	#设置重传时有用</span><br><span class="line">import os						#最后用来暂停一下</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">
+from bs4 import BeautifulSoup   #网页解析，数据获取
+from docx import Document		#操作Word的.docx文档
+import re                       #正则表达式，文字匹配
+import requests					#根据指定url获取网页数据
+from requests.adapters import HTTPAdapter	#设置重传时有用
+import os						#最后用来暂停一下
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
     </div>
 
@@ -480,6 +487,8 @@ alt="下一章" /></p>
     }
 setInterval("createtime()",250);
 </script>
+
+<script src="/js/prism/prism.js" async></script>
 
         
 <div class="busuanzi-count">
