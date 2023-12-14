@@ -554,14 +554,11 @@ title_tag &#x3D; soup.find(&#39;h1&#39;, id&#x3D;&#39;nr_title&#39;, class_&#x3D
 # 提取标题文本
 title &#x3D; title_tag.text.strip()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></p>
 <h2 id="提取正文">提取正文</h2>
-<p><img src="#提取正文"
-alt="提取正文" />(https://s11.ax1x.com/2023/12/14/pihKH0K.pngp标签内容即可</p>
-<p>使用bs4库中的搜索函数find_all()，以及re库中的提取函数findall()，首先搜索所有必要的item</p>
-<pre class="line-numbers language-none"><code class="language-none">for item in soup.find_all(&#39;div&#39;,id &#x3D; &quot;nr1&quot;):
+<p><img src="https://s11.ax1x.com/2023/12/14/pihKH0K.png"
+alt="提取正文" /> <pre class="line-numbers language-none"><code class="language-none">for item in soup.find_all(&#39;div&#39;,id &#x3D; &quot;nr1&quot;):
 end &#x3D; item.get_text(separator&#x3D;&quot;\n&quot;, strip&#x3D;True)
 # 使用get_text获取其中所有的纯文本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>也可以使用正则表达式提取所有p标签的内容，不过略显麻烦
-<pre class="line-numbers language-none"><code class="language-none">findEnd &#x3D; re.compile(r&#39;&lt;p&gt;(.*?)&lt;&#x2F;p&gt;&#39;,re.S)
+也可以使用正则表达式提取所有p标签的内容，不过略显麻烦 <pre class="line-numbers language-none"><code class="language-none">findEnd &#x3D; re.compile(r&#39;&lt;p&gt;(.*?)&lt;&#x2F;p&gt;&#39;,re.S)
 item &#x3D; str(item)
 end &#x3D; re.findall(findEnd,item)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></p>
 <h2 id="实现跳转的逻辑">实现跳转的逻辑</h2>
