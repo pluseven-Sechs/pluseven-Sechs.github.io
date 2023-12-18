@@ -827,4 +827,14 @@ alt="ARP报文结构" /></li>
         <category>线性代数</category>
       </categories>
   </entry>
+  <entry>
+    <title>第七章 死锁</title>
+    <url>/%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%AD%BB%E9%94%81/</url>
+    <content><![CDATA[<ul>
+<li><label><input type="checkbox" />111</label></li>
+<li><label><input type="checkbox" checked="" />111</label></li>
+<li>[ ]</li>
+</ul>
+]]></content>
+  </entry>
 </search>
