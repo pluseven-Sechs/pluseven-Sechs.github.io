@@ -2,7 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <link
+      rel="icon"
+      href="../../themes/next/source/images/favicon-16x16.webp"
+      type="image/webp"
+    />
+    <title>待办事项</title>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <style>
       body {
@@ -41,16 +46,16 @@
       .page-top {
         width: 100%;
         height: 40px;
-        background-color: #db4c3f;
+        background-color: rgba(255, 255, 255, 0.5);
       }
       .page-content {
         width: 50%;
         margin: 0 auto;
       }
-      .page-content h2 {
+      .page-top h2 {
         line-height: 40px;
         font-size: 18px;
-        color: #fff;
+        color: #87ceeb;
       }
       .main {
         width: 50%;
@@ -184,6 +189,11 @@
       .todo-list li.editing:last-child {
         margin-bottom: -1px;
       }
+      body {
+        margin: 0;
+        background-image: url("background3.webp");
+        background-size: cover;
+      }
     </style>
   </head>
   <body>
@@ -193,7 +203,7 @@
     <div class="main">
       <h3 class="big-title">添加任务：</h3>
       <input
-        placeholder="例如：吃饭睡觉打豆豆； 提示：+回车即可添加任务，双击列表标题即可编辑"
+        placeholder="提示：回车即可添加任务，双击列表标题即可编辑"
         class="task-input"
         type="text"
         v-on:keyup.enter="enterFn"
