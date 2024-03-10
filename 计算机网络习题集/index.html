@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"pluseven-sechs.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="5-1 如果使用泛洪策略，则从A出发走任意三步 A -&gt; B -&gt; C -&gt; D A -&gt; B -&gt; C -&gt; F A -&gt; B -&gt; E -&gt; F A -&gt; B -&gt; E -&gt; G A -&gt; G -&gt; E -&gt; F A -&gt; G -&gt; E -&gt; B A -&gt; G -&gt; H">
+  <meta name="description" content="CRC冗余码计算  已知CRC码的生成多项式\(G(x) &#x3D; X^6 + X^5 + X + 1\),若信息位是\(1101110010001\),求冗余多项式R(X)。 要发送的数据为\(1101011011\)。采用CRC的生成多项式是\(P(X) &#x3D; X^4 + X + 1\)。试求应添加在数据后面的余数。数据在传输过程中最后一个1变成了0，问接收端能否发现？若数据在传输过程中最后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络习题集">
 <meta property="og:url" content="https://pluseven-sechs.github.io/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%A0%E9%A2%98%E9%9B%86/index.html">
 <meta property="og:site_name" content="今天你丢大包了吗">
-<meta property="og:description" content="5-1 如果使用泛洪策略，则从A出发走任意三步 A -&gt; B -&gt; C -&gt; D A -&gt; B -&gt; C -&gt; F A -&gt; B -&gt; E -&gt; F A -&gt; B -&gt; E -&gt; G A -&gt; G -&gt; E -&gt; F A -&gt; G -&gt; E -&gt; B A -&gt; G -&gt; H">
+<meta property="og:description" content="CRC冗余码计算  已知CRC码的生成多项式\(G(x) &#x3D; X^6 + X^5 + X + 1\),若信息位是\(1101110010001\),求冗余多项式R(X)。 要发送的数据为\(1101011011\)。采用CRC的生成多项式是\(P(X) &#x3D; X^4 + X + 1\)。试求应添加在数据后面的余数。数据在传输过程中最后一个1变成了0，问接收端能否发现？若数据在传输过程中最后">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T16:31:55.000Z">
-<meta property="article:modified_time" content="2023-12-27T13:23:14.912Z">
+<meta property="article:modified_time" content="2024-02-22T13:17:23.547Z">
 <meta property="article:author" content="Arawn">
 <meta name="twitter:card" content="summary">
 
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-27 21:23:14" itemprop="dateModified" datetime="2023-12-27T21:23:14+08:00">2023-12-27</time>
+                <time title="修改时间：2024-02-22 21:17:23" itemprop="dateModified" datetime="2024-02-22T21:17:23+08:00">2024-02-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,14 +256,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>339</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -275,14 +275,281 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>5-1 如果使用泛洪策略，则从A出发走任意三步 A -&gt; B -&gt; C -&gt; D A
--&gt; B -&gt; C -&gt; F A -&gt; B -&gt; E -&gt; F A -&gt; B -&gt; E
--&gt; G A -&gt; G -&gt; E -&gt; F A -&gt; G -&gt; E -&gt; B A -&gt; G
--&gt; H -&gt; F A -&gt; G -&gt; H -&gt; D 3 × 8 = 24 故hops
-bandwidth为24 5-2 如果C通过B传 A,B,C,D,E,F = (5, 0, 8, 12, 6, 2) + (6,
-6, 6, 6, 6, 6) = (11, 6, 14, 18, 12, 8) 通过D传 A,B,C,D,E,F = (16, 12,
-6, 0, 9, 10) + (3 ,3 ,3 ,3 ,3 ,3 ) = (19 ,) and from E: (7, 6, 3, 9, 0,
-4)</p>
+        <h1 id="crc冗余码计算">CRC冗余码计算</h1>
+<ol type="1">
+<li><p>已知CRC码的生成多项式<span class="math inline">\(G(x) = X^6 + X^5
++ X + 1\)</span>,若信息位是<span
+class="math inline">\(1101110010001\)</span>,求冗余多项式R(X)。</p></li>
+<li><p>要发送的数据为<span
+class="math inline">\(1101011011\)</span>。采用CRC的生成多项式是<span
+class="math inline">\(P(X) = X^4 + X +
+1\)</span>。试求应添加在数据后面的余数。数据在传输过程中最后一个1变成了0，问接收端能否发现？若数据在传输过程中最后两个1都变成了0，问接收端能否发现？</p></li>
+</ol>
+<h1 id="数据报分片">数据报分片</h1>
+<ol type="1">
+<li>已知一个分组的数据部分长度为3800字节，网络规定分组的分片长度不能超过1420字节，假设IP分组的首部采用固定首部20个字节。请问原始分组需要分成几个分片？每个分片的总长度、标识字段（注：原始分组标识字段是666）、DF标志位、MF标志位、分片偏移字段各是多少？</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>分组</th>
+<th>总长度</th>
+<th>标识字段</th>
+<th>DF</th>
+<th>MF</th>
+<th>分片偏移字段</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>原始分组</td>
+<td>3820</td>
+<td>666</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1420</td>
+<td>666</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>1420</td>
+<td>666</td>
+<td>0</td>
+<td>1</td>
+<td>175</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>1020</td>
+<td>666</td>
+<td>0</td>
+<td>0</td>
+<td>350</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>一个UDP用户数据报的数据字段为6192字节。在链路层要使用以太网来传送，试问应当划分为几个IP数据报片？说明每一个数据报数据字段长度和片偏移字段的值。<br />
+没说默认最大分片值MTU为1500字节（包括20字节首部<br />
+<span class="math inline">\(6200/1480 = 5 片\)</span>
+字段长度前四个都是1480，最后一个是280。<br />
+片偏移字段以此类推。</li>
+</ol>
+<h1 id="码分多址通信">码分多址通信</h1>
+<ol type="1">
+<li></li>
+</ol>
+<h1 id="地址聚合">地址聚合</h1>
+<h1 id="路由表更新">路由表更新</h1>
+<ol type="1">
+<li>假定网络中路由器B的路由表有如表所示的项目。</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>目的网络</th>
+<th>距离</th>
+<th>下一条路由器</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N1</td>
+<td>7</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td>N2</td>
+<td>2</td>
+<td>C</td>
+</tr>
+<tr class="odd">
+<td>N6</td>
+<td>8</td>
+<td>F</td>
+</tr>
+<tr class="even">
+<td>N8</td>
+<td>4</td>
+<td>E</td>
+</tr>
+<tr class="odd">
+<td>N9</td>
+<td>4</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<p>现B收到C发来的路由信息，如下表所示。</p>
+<table>
+<thead>
+<tr class="header">
+<th>目的网络</th>
+<th>距离</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N2</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>N3</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>N6</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>N8</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>N9</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>试给出路由器B更新后的路由表。</p>
+<p>C发来的路由信息：<br />
+所有距离+1，下一跳统一为新来的</p>
+<table>
+<thead>
+<tr class="header">
+<th>目的网络</th>
+<th>距离</th>
+<th>下一跳路由器</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N2</td>
+<td>5</td>
+<td>C</td>
+</tr>
+<tr class="even">
+<td>N3</td>
+<td>9</td>
+<td>C</td>
+</tr>
+<tr class="odd">
+<td>N6</td>
+<td>5</td>
+<td>C</td>
+</tr>
+<tr class="even">
+<td>N8</td>
+<td>4</td>
+<td>C</td>
+</tr>
+<tr class="odd">
+<td>N9</td>
+<td>6</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<p>对表中不存在的，直接添加<br />
+存在，下一跳不同，原路由器距离小则更新<br />
+存在，下一跳不同，无条件更新</p>
+<table>
+<thead>
+<tr class="header">
+<th>目的网络</th>
+<th>距离</th>
+<th>下一跳路由器</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N1</td>
+<td>7</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td>N2</td>
+<td>5</td>
+<td>C</td>
+</tr>
+<tr class="odd">
+<td>N3</td>
+<td>9</td>
+<td>C</td>
+</tr>
+<tr class="even">
+<td>N6</td>
+<td>5</td>
+<td>C</td>
+</tr>
+<tr class="odd">
+<td>N8</td>
+<td>4</td>
+<td>E</td>
+</tr>
+<tr class="even">
+<td>N9</td>
+<td>4</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<h1 id="路由表下一跳">路由表下一跳</h1>
+<ol type="1">
+<li>设某路由器建立了如表所示的路由表</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>目的网络</th>
+<th>距离</th>
+<th>下一跳路由器</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>128.96.40.0</td>
+<td>255.255.255.128</td>
+<td>接口Eth0</td>
+</tr>
+<tr class="even">
+<td>128.96.40.128</td>
+<td>255.255.255.128</td>
+<td>接口Eth1</td>
+</tr>
+<tr class="odd">
+<td>128.96.41.0</td>
+<td>255.255.255.128</td>
+<td>R2</td>
+</tr>
+<tr class="even">
+<td>192.4.123.0</td>
+<td>255.255.255.192</td>
+<td>R3</td>
+</tr>
+<tr class="odd">
+<td>*(默认)</td>
+<td>-</td>
+<td>R4</td>
+</tr>
+</tbody>
+</table>
+<p>现收到5个分组，其目的地址分别为：<br />
+（1）128.96.40.10<br />
+（2）128.96.41.12<br />
+（3）128.96.41.151<br />
+（4）192.4.123.17<br />
+（5）192.4.123.90<br />
+试分别计算下一跳。</p>
+<h1 id="网桥转发表">网桥转发表</h1>
+<h1 id="子网划分">子网划分</h1>
 
     </div>
 
@@ -395,6 +662,7 @@ bandwidth为24 5-2 如果C通过B传 A,B,C,D,E,F = (5, 0, 8, 12, 6, 2) + (6,
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#crc%E5%86%97%E4%BD%99%E7%A0%81%E8%AE%A1%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">CRC冗余码计算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%88%86%E7%89%87"><span class="nav-number">2.</span> <span class="nav-text">数据报分片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A0%81%E5%88%86%E5%A4%9A%E5%9D%80%E9%80%9A%E4%BF%A1"><span class="nav-number">3.</span> <span class="nav-text">码分多址通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E8%81%9A%E5%90%88"><span class="nav-number">4.</span> <span class="nav-text">地址聚合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A1%A8%E6%9B%B4%E6%96%B0"><span class="nav-number">5.</span> <span class="nav-text">路由表更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A1%A8%E4%B8%8B%E4%B8%80%E8%B7%B3"><span class="nav-number">6.</span> <span class="nav-text">路由表下一跳</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E6%A1%A5%E8%BD%AC%E5%8F%91%E8%A1%A8"><span class="nav-number">7.</span> <span class="nav-text">网桥转发表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86"><span class="nav-number">8.</span> <span class="nav-text">子网划分</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,14 +678,14 @@ bandwidth为24 5-2 如果C通过B传 A,B,C,D,E,F = (5, 0, 8, 12, 6, 2) + (6,
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -461,12 +729,12 @@ bandwidth为24 5-2 如果C通过B传 A,B,C,D,E,F = (5, 0, 8, 12, 6, 2) + (6,
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">36k</span>
+    <span title="站点总字数">42k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:06</span>
+    <span title="站点阅读时长">1:16</span>
 </div>
 
 <!--

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.webp">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.webp">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"pluseven-sechs.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言 总结来说，Numpy 这个库提供了以下内容： 1. N维数组，一种多维度、同质、能快速、高效使用内存的阵列 2. 提供基于矩阵的数学运算 3. 提供线性代数，傅里叶变换和随机数生成 其中数组为其核心功能 第一次碰到numpy，还是在做线代课的大作业。用程序来模拟实现矩阵的运算，在网上搜索一番，最终选择了numpy和cv2库。代码如下： import cv2 # openCV进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="究极无敌之Numpy">
+<meta property="og:url" content="https://pluseven-sechs.github.io/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BNumpy/index.html">
+<meta property="og:site_name" content="今天你丢大包了吗">
+<meta property="og:description" content="前言 总结来说，Numpy 这个库提供了以下内容： 1. N维数组，一种多维度、同质、能快速、高效使用内存的阵列 2. 提供基于矩阵的数学运算 3. 提供线性代数，傅里叶变换和随机数生成 其中数组为其核心功能 第一次碰到numpy，还是在做线代课的大作业。用程序来模拟实现矩阵的运算，在网上搜索一番，最终选择了numpy和cv2库。代码如下： import cv2 # openCV进行">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-25T05:49:45.000Z">
+<meta property="article:modified_time" content="2024-02-25T13:09:02.502Z">
+<meta property="article:author" content="Arawn">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://pluseven-sechs.github.io/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BNumpy/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>究极无敌之Numpy | 今天你丢大包了吗</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">今天你丢大包了吗</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">陈限方</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-下载">
+
+    <a href="/download/" rel="section"><i class="fa fa-cloud fa-fw"></i>下载</a>
+
+  </li>
+        <li class="menu-item menu-item-待办">
+
+    <a href="/Todo_list/" rel="section"><i class="fa fa-calendar-alt fa-fw"></i>待办</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BNumpy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          究极无敌之Numpy
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-25 13:49:45 / 修改时间：21:09:02" itemprop="dateCreated datePublished" datetime="2024-02-25T13:49:45+08:00">2024-02-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言">前言</h1>
+<p>总结来说，Numpy 这个库提供了以下内容：<br />
+1. N维数组，一种多维度、同质、能快速、高效使用内存的阵列<br />
+2. 提供基于矩阵的数学运算<br />
+3. 提供线性代数，傅里叶变换和随机数生成<br />
+其中数组为其核心功能</p>
+<p>第一次碰到numpy，还是在做线代课的大作业。用程序来模拟实现矩阵的运算，在网上搜索一番，最终选择了numpy和cv2库。代码如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">import cv2 # openCV进行图像处理
+import numpy as np # numpy进行数值计算
+
+mat1 &#x3D; np.array([
+    [  0, 50,  100 ],
+    [  100, 50,  0 ],
+    [  150, 200,  255 ]], dtype &#x3D; np.float32)
+resized &#x3D; np.kron(mat1, np.ones((100, 100)))  # 将矩阵放大100倍便于观看
+resized &#x3D; resized.astype(np.uint8)
+# 将图像数据的像素值范围从其他类型（如浮点数）映射到在图像处理中常见的无符号8位整数范围
+cv2.imshow(&#39;3x3 Matrix1&#39;, resized)
+cv2.waitKey()
+result &#x3D; np.linalg.inv(mat1)
+print(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="函数">函数</h1>
+<h2 id="matplotlib">Matplotlib</h2>
+<h3 id="eg1-基本使用">Eg1 基本使用</h3>
+<pre class="line-numbers language-none"><code class="language-none">import numpy as np 
+from matplotlib import pyplot as plt 
+ 
+x &#x3D; np.arange(1,11) 
+y &#x3D;  2  * x +  5 
+plt.title(&quot;Matplotlib demo&quot;) 
+plt.xlabel(&quot;x axis caption&quot;) 
+plt.ylabel(&quot;y axis caption&quot;) 
+plt.plot(x,y) 
+plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="eg2-汉化">Eg2 汉化</h3>
+<p>使用了免费的<a
+target="_blank" rel="noopener" href="https://source.typekit.com/source-han-serif/cn/">思源黑体</a>
+<pre class="line-numbers language-none"><code class="language-none"># fname 为下载的字体库路径
+zhfont1 &#x3D; matplotlib.font_manager.FontProperties(fname&#x3D;&quot;SourceHanSerifSC-Bold.otf&quot;) 
+ 
+x &#x3D; np.arange(1,11) 
+y &#x3D;  2  * x +  5 
+plt.title(&quot;测试&quot;, fontproperties&#x3D;zhfont1) 
+ 
+# fontproperties 设置中文显示，fontsize 设置字体大小
+plt.xlabel(&quot;x 轴&quot;, fontproperties&#x3D;zhfont1)
+plt.ylabel(&quot;y 轴&quot;, fontproperties&#x3D;zhfont1)
+plt.plot(x,y) 
+plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<h2 id="反序">反序</h2>
+<h3 id="eg1">Eg1</h3>
+<pre class="line-numbers language-none"><code class="language-none">arr &#x3D; np.arange(9).reshape(3,3)
+
+print(arr[::-1, :]) # 行逆序
+print(arr[:, ::-1]) # 列逆序<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>:为选中行，::-1为逆序</p>
+<h1 id="project">Project</h1>
+<h2 id="project1-修改分数">Project1 修改分数</h2>
+<p>假设你是一名大学教师，你在最近的期末考中失手出了巨难的考题，因此学生的成绩都不太理想。虽然如此，你很善良，不忍心大量学生因此挂科，所以你决定修改学科成绩曲线，让大家的分数看起来合理一些。</p>
+<p>你初次批改的卷面分分别为：[42, 35, 64, 85, 51, 72, 59, 12]
+这么一看，8 个人就有 5 个挂，着实有点狠了。</p>
+<pre class="line-numbers language-none"><code class="language-none">import numpy as np
+
+CURVE_CENTER &#x3D; 57.5  # python中用大写字母定义常量
+grades &#x3D; np.array([42, 35, 64, 85, 51, 72, 59, 12])
+
+
+def curve(grades):
+    average &#x3D; grades.mean()  # 计算分数的平均数
+    change &#x3D; CURVE_CENTER - average  # 中位数 - 平均数 &#x3D; 应加的分数
+    new_grades &#x3D; grades + change  # 新分数 &#x3D; 原分数 + 应加分数
+
+    return np.clip(new_grades, grades, 100)  # 使用 clip 函数限制分数上限
+
+
+print(curve(grades).astype(int))  # 打印新的分数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果不使用 NumPy
+处理成绩曲线，我们需要重复为各个分数进行加分后，再进行合计。NumPy
+把这些数据组合成数组后，便可以对这些数据进行统一处理，不仅去相对掉繁琐的
+for 循环，让代码看起来更简洁明了，更减少了代码出现 bug
+的概率。一般上，这个过程被称之为矢量化（vectorization）。</p>
+<h2 id="project2-检索学生班级与成绩">Project2 检索学生班级与成绩</h2>
+<p>因为批改大学的试卷太难了，你选择退而求其次，考了教师资格证成为高中体育老师。这一次，要用
+NumPy 分别记录学生的姓名、班级和成绩。</p>
+<p>在这次的场景中，将应用 NumPy
+中的记录数组（又称之为结构化数组）。这类数组可以为每一列指定数据类别（例如：str
+字符串、int 整数、bool
+布尔运算等）和名称，让数据筛选变得更简单强大。</p>
+<pre class="line-numbers language-none"><code class="language-none">import numpy as np
+
+data &#x3D; np.array([
+    (&quot;丁一&quot;, 1, 87),
+    (&quot;刘二&quot;, 2, 68),
+    (&quot;张三&quot;, 3, 72),
+    (&quot;李四&quot;, 3, 55),
+    (&quot;王五&quot;, 3, 93),
+    (&quot;赵六&quot;, 2, 81),
+    (&quot;孙七&quot;, 1, 75),
+    (&quot;周八&quot;, 1, 88),
+    (&quot;吴九&quot;, 2, 64),
+    (&quot;郑十&quot;, 2, 49)
+], dtype&#x3D;[(&quot;姓名&quot;, str, 10), (&quot;班级&quot;, int), (&quot;分数&quot;, int)])
+
+# 低于及格分数的学生姓名
+fail &#x3D; data[data[&quot;分数&quot;] &lt; 60][&quot;姓名&quot;]
+print(fail)
+
+# 分数最高的学生姓名、班级及分数
+top &#x3D; data[data[&quot;分数&quot;] &#x3D;&#x3D; np.max(data[&quot;分数&quot;])]
+print(top)
+
+# 各班级的学生姓名、班级及分数，需按分数大小逆序排列
+classes &#x3D; [1, 2, 3]
+
+for x in classes:
+    student &#x3D; np.sort(data[data[&quot;班级&quot;] &#x3D;&#x3D; x], order&#x3D;&quot;分数&quot;)[::-1]
+    print(student)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于data["分数"] ==
+np.max(data["分数"])这整个语句是新的布尔数组，[False, False, False,
+False, True, False, False, False, False, False]
+，传入data内部后会自动选择符合条件的。<br />
+data[布尔数组]
+使用这个布尔数组作为索引，选择满足条件（分数等于最大分数）的行。这个操作返回一个新的结构化数组，其中只包含满足条件的学生的信息。
+和前面的其实是一个道理，data["分数"] &lt; 60
+生成了一个布尔数组，其中的每个元素表示对应学生的分数是否小于60。然后，data[data["分数"]
+&lt; 60]
+使用这个布尔数组作为索引，选择了分数小于60的学生的所有字段。最后，["姓名"]
+部分选择了符合条件的学生中的姓名字段，得到了一个包含了分数小于60的学生姓名的数组。</p>
+<h1 id="参考文章">参考文章</h1>
+<p><a
+target="_blank" rel="noopener" href="https://lightly.teamcode.com/blog/python-numpy-practice-exercises/">【Python
+核心库】Numpy 教程与实战练习</a> <a
+target="_blank" rel="noopener" href="https://www.runoob.com/numpy/numpy-matplotlib.html">Runoob</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>“富哥vivo50看看实力”</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.webp" alt="Arawn 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Arawn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://pluseven-sechs.github.io/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BNumpy/" title="究极无敌之Numpy">https://pluseven-sechs.github.io/究极无敌之Numpy/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BUni-cloud/" rel="prev" title="究极无敌之Uni-cloud">
+      <i class="fa fa-chevron-left"></i> 究极无敌之Uni-cloud
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E6%B5%AA%E6%BC%AB%E3%80%81%E8%87%AA%E7%94%B1%E4%B8%8E%E7%94%9F%E8%B7%AF/" rel="next" title="浪漫、自由与生路">
+      浪漫、自由与生路 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#matplotlib"><span class="nav-number">2.1.</span> <span class="nav-text">Matplotlib</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eg1-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">Eg1 基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eg2-%E6%B1%89%E5%8C%96"><span class="nav-number">2.1.2.</span> <span class="nav-text">Eg2 汉化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">反序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eg1"><span class="nav-number">2.2.1.</span> <span class="nav-text">Eg1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#project"><span class="nav-number">3.</span> <span class="nav-text">Project</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#project1-%E4%BF%AE%E6%94%B9%E5%88%86%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">Project1 修改分数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project2-%E6%A3%80%E7%B4%A2%E5%AD%A6%E7%94%9F%E7%8F%AD%E7%BA%A7%E4%B8%8E%E6%88%90%E7%BB%A9"><span class="nav-number">3.2.</span> <span class="nav-text">Project2 检索学生班级与成绩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Arawn"
+      src="/images/avatar.webp">
+  <p class="site-author-name" itemprop="name">Arawn</p>
+  <div class="site-description" itemprop="description">美好的一天从丢大包开始</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pluseven-Sechs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pluseven-Sechs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:pluseven.Sechs@outlook.com" title="E-Mail → mailto:pluseven.Sechs@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="snow">
+    <i class="fa fa-bolt"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Arawn</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">42k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:16</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("11/15/2023 00:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+
+<script src="/js/prism/prism.js" async></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>
