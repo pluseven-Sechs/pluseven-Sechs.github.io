@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.webp">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.webp">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"pluseven-sechs.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="华东师范大学软件工程学院实践报告         实验课程：数据库系统实践 姓名：刘佳奇 学号：10225101455     实验名称：Lab3 函数与存储过程 实验日期：2024&#x2F;4&#x2F;25 指导老师：姚俊杰">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab_dataSolve">
+<meta property="og:url" content="https://pluseven-sechs.github.io/Lab-dataSolve/index.html">
+<meta property="og:site_name" content="今天你丢大包了吗">
+<meta property="og:description" content="华东师范大学软件工程学院实践报告         实验课程：数据库系统实践 姓名：刘佳奇 学号：10225101455     实验名称：Lab3 函数与存储过程 实验日期：2024&#x2F;4&#x2F;25 指导老师：姚俊杰">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://v1.ax1x.com/2024/05/17/7bYNc3.png">
+<meta property="og:image" content="https://v1.ax1x.com/2024/05/17/7bYqjj.png">
+<meta property="og:image" content="https://v1.ax1x.com/2024/05/17/7brxP6.png">
+<meta property="og:image" content="https://v1.ax1x.com/2024/05/17/7br5FO.png">
+<meta property="article:published_time" content="2024-05-10T15:12:35.000Z">
+<meta property="article:modified_time" content="2024-05-19T06:12:23.598Z">
+<meta property="article:author" content="Arawn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://v1.ax1x.com/2024/05/17/7bYNc3.png">
+
+<link rel="canonical" href="https://pluseven-sechs.github.io/Lab-dataSolve/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lab_dataSolve | 今天你丢大包了吗</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">今天你丢大包了吗</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">陈限方</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-下载">
+
+    <a href="/download/" rel="section"><i class="fa fa-cloud fa-fw"></i>下载</a>
+
+  </li>
+        <li class="menu-item menu-item-待办">
+
+    <a href="/Todo_list/" rel="section"><i class="fa fa-calendar-alt fa-fw"></i>待办</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/Lab-dataSolve/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lab_dataSolve
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-10 23:12:35" itemprop="dateCreated datePublished" datetime="2024-05-10T23:12:35+08:00">2024-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-19 14:12:23" itemprop="dateModified" datetime="2024-05-19T14:12:23+08:00">2024-05-19</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1
+id="华东师范大学软件工程学院实践报告">华东师范大学软件工程学院实践报告</h1>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 29%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>实验课程：数据库系统实践</th>
+<th>姓名：刘佳奇</th>
+<th>学号：10225101455</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>实验名称：Lab3 函数与存储过程</td>
+<td>实验日期：2024/4/25</td>
+<td>指导老师：姚俊杰</td>
+</tr>
+</tbody>
+</table>
+<span id="more"></span>
+<h2 id="实验目的">实验目的</h2>
+<p>通过对实际数据集操作体会python与sql的结合，以及熟悉数据库扩容等操作。</p>
+<h2 id="实验环境">实验环境</h2>
+<ul>
+<li>Vscode</li>
+</ul>
+<h2 id="实验过程与分析">实验过程与分析</h2>
+<h3 id="q1.-对数据集进行扩充">Q1. 对数据集进行扩充</h3>
+<pre class="line-numbers language-none"><code class="language-none">import os
+
+def get_realpath(relative_path):
+    cwd &#x3D; os.getcwd()
+    return os.path.join(cwd, relative_path)
+
+KAGGLE_INPUT_PATH   &#x3D; get_realpath(&#39;datas&#x2F;kaggle&#x2F;input&#39;)
+KAGGLE_WORKING_PATH &#x3D; get_realpath(&#39;datas&#x2F;kaggle&#x2F;working&#39;)
+
+def get_relativepath(realpath, basepath&#x3D;KAGGLE_INPUT_PATH):
+    cwd &#x3D; os.getcwd()
+    return os.path.relpath(realpath, basepath)
+
+import numpy as np    # linear algebra
+import pandas as pd   # data processing, CSV file I&#x2F;O (e.g. pd.read_csv)
+
+print(&#39;List files under KAGGLE_INPUT_PATH(&#39;, get_relativepath(KAGGLE_INPUT_PATH, os.getcwd()), &#39;):\n&#39;)
+import os
+for dirname, _, filenames in os.walk(KAGGLE_INPUT_PATH):
+    for filename in filenames:
+        realpath &#x3D; os.path.join(dirname, filename)
+        relative_path &#x3D; get_relativepath(realpath)
+        print(&#39;   &#39;, relative_path)
+        
+import sqlite3 as sql
+from os import path
+
+db_connection &#x3D; path.join(KAGGLE_INPUT_PATH, &quot;mubi-sqlite-database-for-movie-lovers&#x2F;mubi_db.sqlite&quot;)
+conn &#x3D; sql.connect(r&#39;E:\apps\Vscode\Python\Lab\datas\kaggle\input\mubi-sqlite-database-for-movie-lovers\mubi_db.sqlite&#39;)
+# 读取最后10个数据
+result1 &#x3D; pd.read_sql_query(&quot;SELECT * FROM movies ORDER BY rowid DESC LIMIT 10&quot;, conn)
+print(result1)
+
+# 计算原始数据的行数
+cursor &#x3D; conn.cursor()
+cursor.execute(&quot;SELECT COUNT(*) FROM movies&quot;)
+num_rows &#x3D; cursor.fetchone()[0]
+print(&quot;Total number of rows in &#39;movies&#39; table:&quot;, num_rows)
+
+# 使用整个数据集的一半行数进行抽样
+selected_data &#x3D; result1.sample(n&#x3D;num_rows &#x2F;&#x2F; 2, replace&#x3D;True, random_state&#x3D;42)
+
+# 保存选择的数据到原来的数据集
+selected_data.to_sql(&#39;movies&#39;, conn, if_exists&#x3D;&#39;append&#39;, index&#x3D;False)
+
+# 读取新数据集的前几行进行检查
+result2 &#x3D; pd.read_sql_query(&quot;SELECT * FROM movies ORDER BY rowid DESC LIMIT 10&quot;, conn)
+print(result2)
+
+# 计算原始数据的行数
+cursor &#x3D; conn.cursor()
+cursor.execute(&quot;SELECT COUNT(*) FROM movies&quot;)
+num_rows2 &#x3D; cursor.fetchone()[0]
+print(&quot;Total number of rows in &#39;movies&#39; table:&quot;, num_rows2)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在Pandas中，sample()函数用于从DataFrame中随机抽取样本。random_state设置随机种子保证每次抽取结果一致。随后将随机抽取的样本保存到原来的数据库。
+运行结果：<br />
+<img src="https://v1.ax1x.com/2024/05/17/7bYNc3.png"
+alt="运行结果" /></p>
+<h3 id="q2.-将扩容后的数据集减小14数据量">Q2.
+将扩容后的数据集减小1/4数据量</h3>
+<pre class="line-numbers language-none"><code class="language-none">db_connection &#x3D; path.join(KAGGLE_INPUT_PATH, &quot;mubi-sqlite-database-for-movie-lovers&#x2F;mubi_db.sqlite&quot;)
+# 连接到数据库
+conn &#x3D; sql.connect(r&#39;E:\apps\Vscode\Python\Lab\datas\kaggle\input\mubi-sqlite-database-for-movie-lovers\mubi_db.sqlite&#39;)
+
+# 计算原始数据的行数
+cursor &#x3D; conn.cursor()
+cursor.execute(&quot;SELECT COUNT(*) FROM movies&quot;)
+num_rows &#x3D; cursor.fetchone()[0]
+print(&quot;Total number of rows in &#39;movies&#39; table:&quot;, num_rows)
+
+# 选择要保留的数据量（原始数据量的四分之三）
+num_rows_to_keep &#x3D; num_rows * 3 &#x2F;&#x2F; 4
+
+# 从数据库中随机选择要保留的数据
+selected_data &#x3D; pd.read_sql_query(f&quot;SELECT * FROM movies ORDER BY RANDOM() LIMIT &#123;num_rows_to_keep&#125;&quot;, conn)
+
+# 将所选数据保存到一个新的数据库表中
+selected_data.to_sql(&#39;temp_movies&#39;, conn, if_exists&#x3D;&#39;replace&#39;, index&#x3D;False)
+
+# 删除原来的 &#39;movies&#39; 表格
+conn.execute(&quot;DROP TABLE IF EXISTS movies&quot;)
+
+# 将临时表格 &#39;temp_movies&#39; 重命名为 &#39;movies&#39;
+conn.execute(&quot;ALTER TABLE temp_movies RENAME TO movies&quot;) 
+
+# 读取新数据表的前几行进行检查
+result &#x3D; pd.read_sql_query(&quot;SELECT * FROM movies LIMIT 10&quot;, conn)
+print(result)
+
+# 计算调整后的数据的行数
+cursor.execute(&quot;SELECT COUNT(*) FROM movies&quot;)
+num_rows_adjusted &#x3D; cursor.fetchone()[0]
+print(&quot;Total number of rows in &#39;movies&#39; table after adjustment:&quot;, num_rows_adjusted)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从数据库随机选择要保留的四分之三数据，然后通过临时表格的媒介将原表覆盖。
+运行结果： <img src="https://v1.ax1x.com/2024/05/17/7bYqjj.png"
+alt="运行结果" /></p>
+<h3 id="q3.-实现嵌套查询">Q3. 实现嵌套查询</h3>
+<p>查找15年之后发行的电影的评论且title长度大于8。</p>
+<pre class="line-numbers language-none"><code class="language-none"># 执行SQL查询
+query &#x3D; &quot;&quot;&quot;
+SELECT *
+FROM movies
+WHERE LENGTH(movie_title) &gt; 8
+AND movie_id IN (
+    SELECT DISTINCT movie_id
+    FROM movies
+    WHERE movie_release_year &gt; 2015.0
+)
+&quot;&quot;&quot;
+result &#x3D; pd.read_sql_query(query, conn)
+
+# 打印结果
+print(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果： <img src="https://v1.ax1x.com/2024/05/17/7brxP6.png"
+alt="运行结果" /></p>
+<h3 id="q4.-同时使用group-by语句和where语句进行查询">Q4. 同时使用group
+by语句和where语句进行查询</h3>
+<p>选取mocie_title大于8的影评，同时按照movie_release_year进行分组。<br />
+<pre class="line-numbers language-none"><code class="language-none"># 执行SQL查询
+query &#x3D; &quot;&quot;&quot;
+SELECT movie_title, movie_release_year
+FROM movies
+WHERE LENGTH(movie_title) &lt; 8
+GROUP BY movie_release_year;
+&quot;&quot;&quot;
+result &#x3D; pd.read_sql_query(query, conn)
+
+# 打印结果
+print(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>运行结果：<br />
+<img src="https://v1.ax1x.com/2024/05/17/7br5FO.png"
+alt="运行结果" /></p>
+<h3 id="q5.-关系代数式">Q5. 关系代数式</h3>
+<p>一、 1. 获取最后10个数据</p>
+<p>[ <em>{} (</em>{last_10} (_{True}(movies))) ] 其中，()
+表示排序操作，() 表示重命名操作，() 表示选择操作。</p>
+<ol start="2" type="1">
+<li>计算原始数据的行数</li>
+</ol>
+<p>[ _{} (movies) ] 其中，() 表示聚合操作。</p>
+<ol start="3" type="1">
+<li>抽样一半行数的数据</li>
+</ol>
+<p>在 SQL
+中没有直接的关系代数运算符来表示抽样，但我们可以通过以下关系代数表示要实现的抽样目标：
+[ _{*} (<em>{} (movies)) ] 其中，() 表示投影操作，(</em>{})
+表示根据随机条件选择行。</p>
+<ol start="4" type="1">
+<li>保存选择的数据到原来的数据集</li>
+</ol>
+<p>[ movies sampled_data ] 其中，() 表示并操作。</p>
+<ol start="5" type="1">
+<li>读取新数据集的前几行进行检查</li>
+</ol>
+<p>[ <em>{} (</em>{last_10} (_{True}(movies))) ]</p>
+<ol start="6" type="1">
+<li>计算新的数据行数</li>
+</ol>
+<p>[ <em>{} (movies) ] 二、 1. 计算原始数据的行数： [ n </em>{} (movies)
+]</p>
+<ol start="2" type="1">
+<li><p>选择要保留的数据量（原始数据量的四分之三）： [ m n ]</p></li>
+<li><p>从数据库中随机选择要保留的数据： [ temp_movies _{*} (_{}
+(movies)) m ]</p></li>
+<li><p>删除原来的 'movies' 表： [ movies ]</p></li>
+<li><p>将临时表 'temp_movies' 重命名为 'movies'： [ movies temp_movies
+]</p></li>
+<li><p>读取新数据表的前几行进行检查： [ _{*} (<em>{top_10}
+(</em>{True}(movies))) ]</p></li>
+<li><p>计算调整后的数据的行数： [ new_n _{} (movies) ]</p></li>
+</ol>
+<p>三、</p>
+<p>[ result <em>{ (</em>{} (_{ &gt; 2015}(movies)))}(movies) ]</p>
+<p>四、</p>
+<p>[ result <em>{} (</em>{, } (_{}(movies))) ]</p>
+<h2 id="实验结果总结">实验结果总结</h2>
+<h3 id="结果归纳">结果归纳</h3>
+<ol type="1">
+<li>对实际巨大数据集的扩容、缩小、查询等操作有了深入的了解。</li>
+<li>对实际查询的SQL语句与关系代数式的对应有了深入的理解。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>“富哥vivo50看看实力”</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.webp" alt="Arawn 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Arawn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://pluseven-sechs.github.io/Lab-dataSolve/" title="Lab_dataSolve">https://pluseven-sechs.github.io/Lab-dataSolve/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%98%A0%E5%83%8F%E5%BE%AA%E5%9B%9E/" rel="prev" title="映像循回">
+      <i class="fa fa-chevron-left"></i> 映像循回
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Lab-PHP/" rel="next" title="Lab PHP">
+      Lab PHP <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8E%E4%B8%9C%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A6%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AD%A6%E9%99%A2%E5%AE%9E%E8%B7%B5%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">华东师范大学软件工程学院实践报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">实验过程与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#q1.-%E5%AF%B9%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BF%9B%E8%A1%8C%E6%89%A9%E5%85%85"><span class="nav-number">1.3.1.</span> <span class="nav-text">Q1. 对数据集进行扩充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q2.-%E5%B0%86%E6%89%A9%E5%AE%B9%E5%90%8E%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86%E5%87%8F%E5%B0%8F14%E6%95%B0%E6%8D%AE%E9%87%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">Q2.
+将扩容后的数据集减小1&#x2F;4数据量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q3.-%E5%AE%9E%E7%8E%B0%E5%B5%8C%E5%A5%97%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.3.3.</span> <span class="nav-text">Q3. 实现嵌套查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q4.-%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8group-by%E8%AF%AD%E5%8F%A5%E5%92%8Cwhere%E8%AF%AD%E5%8F%A5%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.3.4.</span> <span class="nav-text">Q4. 同时使用group
+by语句和where语句进行查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q5.-%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E5%BC%8F"><span class="nav-number">1.3.5.</span> <span class="nav-text">Q5. 关系代数式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">实验结果总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E5%BD%92%E7%BA%B3"><span class="nav-number">1.4.1.</span> <span class="nav-text">结果归纳</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Arawn"
+      src="/images/avatar.webp">
+  <p class="site-author-name" itemprop="name">Arawn</p>
+  <div class="site-description" itemprop="description">美好的一天从丢大包开始</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pluseven-Sechs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pluseven-Sechs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:pluseven.Sechs@outlook.com" title="E-Mail → mailto:pluseven.Sechs@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="snow">
+    <i class="fa fa-bolt"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Arawn</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">79k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:24</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("11/15/2023 00:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+
+<script src="/js/prism/prism.js" async></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

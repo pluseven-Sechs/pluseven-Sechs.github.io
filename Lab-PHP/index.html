@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.webp">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.webp">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"pluseven-sechs.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="华东师范大学软件工程学院实践报告    实验课程：数据库系统实践 姓名：刘佳奇 学号：10225101455     实验名称：Lab PHP 实验日期：2024&#x2F;5&#x2F;11 指导老师：姚俊杰">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab PHP">
+<meta property="og:url" content="https://pluseven-sechs.github.io/Lab-PHP/index.html">
+<meta property="og:site_name" content="今天你丢大包了吗">
+<meta property="og:description" content="华东师范大学软件工程学院实践报告    实验课程：数据库系统实践 姓名：刘佳奇 学号：10225101455     实验名称：Lab PHP 实验日期：2024&#x2F;5&#x2F;11 指导老师：姚俊杰">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-19T06:38:05.000Z">
+<meta property="article:modified_time" content="2024-05-26T18:46:21.247Z">
+<meta property="article:author" content="Arawn">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://pluseven-sechs.github.io/Lab-PHP/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lab PHP | 今天你丢大包了吗</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">今天你丢大包了吗</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">陈限方</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-下载">
+
+    <a href="/download/" rel="section"><i class="fa fa-cloud fa-fw"></i>下载</a>
+
+  </li>
+        <li class="menu-item menu-item-待办">
+
+    <a href="/Todo_list/" rel="section"><i class="fa fa-calendar-alt fa-fw"></i>待办</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pluseven-sechs.github.io/Lab-PHP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Arawn">
+      <meta itemprop="description" content="美好的一天从丢大包开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你丢大包了吗">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lab PHP
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-19 14:38:05" itemprop="dateCreated datePublished" datetime="2024-05-19T14:38:05+08:00">2024-05-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-27 02:46:21" itemprop="dateModified" datetime="2024-05-27T02:46:21+08:00">2024-05-27</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>17 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1
+id="华东师范大学软件工程学院实践报告">华东师范大学软件工程学院实践报告</h1>
+<table>
+<thead>
+<tr class="header">
+<th>实验课程：数据库系统实践</th>
+<th>姓名：刘佳奇</th>
+<th>学号：10225101455</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>实验名称：Lab PHP</td>
+<td>实验日期：2024/5/11</td>
+<td>指导老师：姚俊杰</td>
+</tr>
+</tbody>
+</table>
+<span id="more"></span>
+<h2 id="实验目的">实验目的</h2>
+<p>使用PHP连接数据库并实现批量化插入删除查询等功能。</p>
+<h2 id="实验环境">实验环境</h2>
+<ul>
+<li>Vscode</li>
+<li>MySQL 8.3.0</li>
+<li>PHP 7.3.4</li>
+</ul>
+<h2 id="实验过程与分析">实验过程与分析</h2>
+<p>PHP与MySQL的连接主要使用MySQLi函数库，其中i代表improvement增强，是MySQL函数库的扩展库，增加了安全性，可以大幅减少SQL注入等的发生。</p>
+<p>mysql与mysqli的联系：
+（1）mysql与mysqli都是php方面的函数集，与mysql数据库关联不大。
+（2）在php5版本之前，一般是用php的mysql函数去驱动mysql数据库的，比如mysql_query()的函数，属于面向过程<br />
+（3）在php5版本以后，增加了mysqli的函数功能，某种意义上讲，它是mysql系统函数的增强版，更稳定更高效更安全，与mysql_query()对应的有mysqli_query()，属于面向对象，用对象的方式操作驱动mysql数据库</p>
+<p>接下来我们将使用这个库进行实验操作的进行。</p>
+<p>思路：</p>
+<p>index.php<br />
+总体结构为if else语句来区分初次访问和表单提交<br />
+首先，根据用户请求的方法（GET或POST）来确定是显示查询表单还是处理用户的查询请求;<br />
+如果是POST请求，获取用户输入的学生姓名或ID，并通过预处理语句执行数据库查询操作，防止了SQL注入的发生;<br />
+如果查询到符合条件的学生信息，则将查询结果以表格的形式展示在页面上，并为每个学生提供了查看课程信息的按钮;<br />
+若未查询到学生信息或查询出错，则给出相应的提示或报错信息。</p>
+<p>get_courses.php
+当用户点击查看课程信息按钮时，通过POST方法将学生ID提交到get_courses.php文件中;
+查询结果以表格的形式展示在页面上，并计算了学生的平均绩点;<br />
+若未查询到课程信息或查询出错，则给出相应的提示或报错信息</p>
+<p>index.php<br />
+<pre class="line-numbers language-none"><code class="language-none">&lt;?php
+
+&#x2F;&#x2F; 显示HTML表单供用户输入子串或ID
+if ($_SERVER[&#39;REQUEST_METHOD&#39;] &#x3D;&#x3D; &#39;POST&#39;) &#123;
+    &#x2F;&#x2F; 获取用户输入的子串或ID
+    $substring &#x3D; $_POST[&#39;substring&#39;];
+    $studentId &#x3D; $_POST[&#39;studentId&#39;];
+
+    &#x2F;&#x2F; 连接到数据库
+    $con &#x3D; mysqli_connect(&quot;localhost&quot;, &quot;root&quot;, &quot;59413&quot;);
+
+    &#x2F;&#x2F; 判断是否连接成功
+    if (!$con) &#123;
+        die(&#39;数据库连接失败: &#39; . mysqli_connect_error());
+    &#125; else &#123;
+        &#x2F;&#x2F; 设置编码格式
+        mysqli_set_charset($con, &quot;utf8&quot;);
+
+        &#x2F;&#x2F; 选择数据库
+        mysqli_select_db($con, &quot;college&quot;);
+
+        if (!empty($substring)) &#123;
+            &#x2F;&#x2F; 使用预处理语句防止SQL注入
+            $stmt &#x3D; $con-&gt;prepare(&quot;SELECT ID, name, dept_name, tot_cred FROM student WHERE name LIKE ?&quot;);
+            $like_substring &#x3D; &quot;%&quot; . $substring . &quot;%&quot;;
+            $stmt-&gt;bind_param(&quot;s&quot;, $like_substring);
+        &#125; else if (!empty($studentId)) &#123;
+            &#x2F;&#x2F; 使用预处理语句防止SQL注入
+            $stmt &#x3D; $con-&gt;prepare(&quot;SELECT ID, name, dept_name, tot_cred FROM student WHERE ID &#x3D; ?&quot;);
+            $stmt-&gt;bind_param(&quot;i&quot;, $studentId);
+        &#125; else &#123;
+            echo &quot;请输入学生姓名或ID。&quot;;
+            return;
+        &#125;
+
+        $stmt-&gt;execute();
+        $result &#x3D; $stmt-&gt;get_result();
+
+        if ($result) &#123;
+            if ($result-&gt;num_rows &gt; 0) &#123;
+                &#x2F;&#x2F; 输出表格及th
+                echo &quot;&lt;table border&#x3D;&#39;2&#39; width&#x3D;&#39;300&#39;&gt;
+                        &lt;tr&gt;
+                        &lt;th&gt;ID&lt;&#x2F;th&gt;&lt;th&gt;name&lt;&#x2F;th&gt;
+                        &lt;th&gt;dept_name&lt;&#x2F;th&gt;&lt;th&gt;tot_cred&lt;&#x2F;th&gt;&lt;th&gt;操作&lt;&#x2F;th&gt;
+                        &lt;&#x2F;tr&gt;&quot;;
+
+                &#x2F;&#x2F; 遍历数据表中的内容
+                while ($row &#x3D; $result-&gt;fetch_assoc()) &#123;
+                    echo &quot;&lt;tr&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;ID&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;name&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;dept_name&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;tot_cred&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&lt;button onclick&#x3D;&#39;getCourses(&quot; . htmlspecialchars($row[&#39;ID&#39;]) . &quot;)&#39;&gt;查看课程信息&lt;&#x2F;button&gt;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;&#x2F;tr&gt;&quot;;
+                &#125;
+                echo &quot;&lt;&#x2F;table&gt;&quot;;
+            &#125; else &#123;
+                echo &quot;&lt;script&gt;alert(&#39;无相关学生信息。&#39;);&lt;&#x2F;script&gt;&quot;;
+            &#125;
+        &#125; else &#123;
+            echo &quot;查询失败: &quot; . mysqli_error($con);
+        &#125;
+
+        &#x2F;&#x2F; 关闭预处理语句
+        $stmt-&gt;close();
+    &#125;
+
+    &#x2F;&#x2F; 关闭数据库
+    mysqli_close($con);
+&#125; else &#123;
+    &#x2F;&#x2F; 显示输入表单
+    echo &#39;&lt;form method&#x3D;&quot;post&quot; action&#x3D;&quot;&quot;&gt;
+            请输入学生姓名或其子串: &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;substring&quot;&gt;
+            请输入学生ID: &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;studentId&quot;&gt;
+            &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;查询&quot;&gt;
+          &lt;&#x2F;form&gt;&#39;;
+&#125;
+
+?&gt;
+
+&lt;script&gt;
+function getCourses(studentId) &#123;
+    &#x2F;&#x2F; 创建一个隐藏的表单并提交
+    var form &#x3D; document.createElement(&quot;form&quot;);
+    form.method &#x3D; &quot;POST&quot;;
+    form.action &#x3D; &quot;get_courses.php&quot;;
+
+    var input &#x3D; document.createElement(&quot;input&quot;);
+    input.type &#x3D; &quot;hidden&quot;;
+    input.name &#x3D; &quot;studentId&quot;;
+    input.value &#x3D; studentId;
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+&#125;
+&lt;&#x2F;script&gt;
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>get_courses.php <pre class="line-numbers language-none"><code class="language-none">&lt;?php
+
+if ($_SERVER[&#39;REQUEST_METHOD&#39;] &#x3D;&#x3D; &#39;POST&#39;) &#123;
+    &#x2F;&#x2F; 获取学生ID
+    $studentId &#x3D; $_POST[&#39;studentId&#39;];
+
+    &#x2F;&#x2F; 连接到数据库
+    $con &#x3D; mysqli_connect(&quot;localhost&quot;, &quot;root&quot;, &quot;59413&quot;);
+
+    &#x2F;&#x2F; 判断是否连接成功
+    if (!$con) &#123;
+        die(&#39;数据库连接失败: &#39; . mysqli_connect_error());
+    &#125; else &#123;
+        &#x2F;&#x2F; 设置编码格式
+        mysqli_set_charset($con, &quot;utf8&quot;);
+
+        &#x2F;&#x2F; 选择数据库
+        mysqli_select_db($con, &quot;college&quot;);
+
+        &#x2F;&#x2F; 查询学生的课程信息
+        $stmt &#x3D; $con-&gt;prepare(&quot;SELECT 
+                                takes.course_id, 
+                                section.year, 
+                                section.semester, 
+                                course.title, 
+                                course.dept_name, 
+                                takes.grade, 
+                                course.credits 
+                              FROM takes 
+                              JOIN section ON takes.course_id &#x3D; section.course_id 
+                              JOIN course ON takes.course_id &#x3D; course.course_id 
+                              WHERE takes.ID &#x3D; ?&quot;);
+        $stmt-&gt;bind_param(&quot;i&quot;, $studentId);
+        $stmt-&gt;execute();
+        $result &#x3D; $stmt-&gt;get_result();
+
+        if ($result) &#123;
+            if ($result-&gt;num_rows &gt; 0) &#123;
+                &#x2F;&#x2F; 输出表格及th
+                echo &quot;&lt;table border&#x3D;&#39;2&#39; width&#x3D;&#39;500&#39;&gt;
+                        &lt;tr&gt;
+                        &lt;th&gt;课程ID&lt;&#x2F;th&gt;&lt;th&gt;上课年份&lt;&#x2F;th&gt;
+                        &lt;th&gt;上课学期&lt;&#x2F;th&gt;&lt;th&gt;课程名称&lt;&#x2F;th&gt;
+                        &lt;th&gt;开课院系&lt;&#x2F;th&gt;&lt;th&gt;成绩等级&lt;&#x2F;th&gt;
+                        &lt;th&gt;课程学分数&lt;&#x2F;th&gt;
+                        &lt;&#x2F;tr&gt;&quot;;
+
+                &#x2F;&#x2F; 计算GPA
+                $totalGradePoints &#x3D; 0;
+                $totalCredits &#x3D; 0;
+
+                &#x2F;&#x2F; 遍历数据表中的内容
+                while ($row &#x3D; $result-&gt;fetch_assoc()) &#123;
+                    echo &quot;&lt;tr&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;course_id&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;year&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;semester&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;title&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;dept_name&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;grade&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;td&gt;&quot; . htmlspecialchars($row[&#39;credits&#39;]) . &quot;&lt;&#x2F;td&gt;&quot;;
+                    echo &quot;&lt;&#x2F;tr&gt;&quot;;
+
+                    &#x2F;&#x2F; 计算总成绩点和总学分
+                    $grade &#x3D; $row[&#39;grade&#39;];
+                    $credits &#x3D; $row[&#39;credits&#39;];
+
+                    &#x2F;&#x2F; 获取成绩点
+                    $gradeStmt &#x3D; $con-&gt;prepare(&quot;SELECT grade_point FROM gp_mapping WHERE grade &#x3D; ?&quot;);
+                    $gradeStmt-&gt;bind_param(&quot;s&quot;, $grade);
+                    $gradeStmt-&gt;execute();
+                    $gradeResult &#x3D; $gradeStmt-&gt;get_result();
+
+                    if ($gradeResult &amp;&amp; $gradeResult-&gt;num_rows &gt; 0) &#123;
+                        $gradeRow &#x3D; $gradeResult-&gt;fetch_assoc();
+                        $gradePoint &#x3D; $gradeRow[&#39;grade_point&#39;];
+                        $totalGradePoints +&#x3D; $gradePoint * $credits;
+                        $totalCredits +&#x3D; $credits;
+                    &#125;
+
+                    &#x2F;&#x2F; 关闭预处理语句
+                    $gradeStmt-&gt;close();
+                &#125;
+                echo &quot;&lt;&#x2F;table&gt;&quot;;
+
+                &#x2F;&#x2F; 显示GPA
+                if ($totalCredits &gt; 0) &#123;
+                    $gpa &#x3D; $totalGradePoints &#x2F; $totalCredits;
+                    echo &quot;&lt;h3&gt;平均绩点 (GPA): &quot; . number_format($gpa, 2) . &quot;&lt;&#x2F;h3&gt;&quot;;
+                &#125; else &#123;
+                    echo &quot;&lt;h3&gt;无课程信息，无法计算GPA。&lt;&#x2F;h3&gt;&quot;;
+                &#125;
+            &#125; else &#123;
+                echo &quot;&lt;script&gt;alert(&#39;无相关课程信息。&#39;);&lt;&#x2F;script&gt;&quot;;
+            &#125;
+        &#125; else &#123;
+            echo &quot;查询失败: &quot; . mysqli_error($con);
+        &#125;
+
+        &#x2F;&#x2F; 关闭预处理语句
+        $stmt-&gt;close();
+    &#125;
+
+    &#x2F;&#x2F; 关闭数据库
+    mysqli_close($con);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre> 运行结果：</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://v1.ax1x.com/2024/05/27/7gbzVU.md.png" alt="1" />
+输入roses，查看名字为roses的学生信息：<br />
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://v1.ax1x.com/2024/05/27/7gbJTs.png" alt="2" />
+点击查询课程信息进行查询：<br />
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://v1.ax1x.com/2024/05/27/7gbjr7.md.png" alt="3" />
+或查询序号为1000的同学：<br />
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://v1.ax1x.com/2024/05/27/7gbXha.png" alt="4" /></p>
+<p>另外，让我们验证一下输入不存在的学生名字，我们已经用js写好了弹窗提示：<br />
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://v1.ax1x.com/2024/05/27/7gb4Xq.png" alt="5" /></p>
+<h2 id="实验结果总结">实验结果总结</h2>
+<h3 id="结果归纳">结果归纳</h3>
+<p>本实验通过使用PHP连接MySQL数据库，实现了批量化的学生信息查询和课程信息查询功能。通过预处理语句，有效地防止了SQL注入等安全问题的发生。此外，通过计算学生的平均绩点，进一步丰富了查询结果的内容，提升了系统的实用性和用户体验。</p>
+<h3 id="问题辨析">问题辨析</h3>
+<ol type="1">
+<li>PHP连接MySQL时报错：The server requested authentication method
+unknown to the client</li>
+</ol>
+<p>（1）错误信息：服务器请求使用的是客户端未知的身份验证方法。<br />
+（2）问题分析：</p>
+<p>MySQL 目前使用的身份验证插件有三种：</p>
+<ul>
+<li>mysql_native_password：使用新的SHA1哈希算法进行认证校验。通过SHA1(SHA1(password))两次哈希计算用户的原始密码然后保存在表mysql.user的authentication_string列中。（SHA1哈希算法现在已变得比较容易破解、相同的密码拥有相同的哈希值）<br />
+</li>
+<li>sha256_password：实现基本的SHA-256身份验证。（加密方式比
+mysql_native_password更安全，但认证过程中的时间更长 ）</li>
+<li>caching_sha2_password：哈希算法升级为了更为安全SHA256算法，并在服务器端使用缓存以获得更好的性能，并具有其他功能以提高适用性。（更安全的密码加密和更好的性能）</li>
+</ul>
+<p>在 MySQL 8.0 版本中，默认的身份验证插件是 caching_sha2_password；而在
+MySQL 5.7
+版本则为mysql_native_password。我们的是8.3.0版本，由于不确定可以在MySQL命令行查看默认值。
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; show variables like &#39;default_authentication_plugin&#39;;
++-------------------------------+-----------------------+
+| Variable_name                 | Value                 |
++-------------------------------+-----------------------+
+| default_authentication_plugin | caching_sha2_password |
++-------------------------------+-----------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>或者查看用户与身份验证插件：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select user,host,plugin from mysql.user;
++------------------+-----------+-----------------------+
+| user             | host      | plugin                |
++------------------+-----------+-----------------------+
+| root             | %         | caching_sha2_password |
+| mysql.infoschema | localhost | caching_sha2_password |
+| mysql.session    | localhost | caching_sha2_password |
+| mysql.sys        | localhost | caching_sha2_password |
++------------------+-----------+-----------------------+
+4 rows in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上述的三种验证方法应该用哪一种呢？这是由PHP版本决定的，我们同样可以用phpinfo（）函数查看PHP连接MySQL时支持哪种身份验证插件</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;?php
+
+phpinfo();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>在web界面中找到mysqlnd 下面的 Loaded plugins
+的那一行，名字以auth_plugin_开头的就是 当前 PHP 可用的 MySQL
+身份验证插件。</p>
+<figure>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://v1.ax1x.com/2024/05/22/7gu18I.png" alt="当前可用" />
+<figcaption aria-hidden="true">当前可用</figcaption>
+</figure>
+<p>可以看到，我当前使用的 PHP 并不支持
+caching_sha2_password，这就是我连接 MySQL 会报错的原因。我们从中选一个
+PHP 和 Mysql 都支持的身份验证插件就行，这里我选择使用
+sha256_password，所以只要我把 MySQL 的也改成 sha256_password
+就行了。</p>
+<p>（3）解决方法：修改 MySQL 的身份认证插件</p>
+<pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;用户名&#39;@&#39;%&#39; IDENTIFIED WITH sha256_password BY &#39;密码&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>“富哥vivo50看看实力”</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.webp" alt="Arawn 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Arawn
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://pluseven-sechs.github.io/Lab-PHP/" title="Lab PHP">https://pluseven-sechs.github.io/Lab-PHP/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Lab-dataSolve/" rel="prev" title="Lab_dataSolve">
+      <i class="fa fa-chevron-left"></i> Lab_dataSolve
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E9%92%B1%E4%B8%8E%E8%89%B2%E5%88%B0%E6%83%85%E4%B8%8E%E7%88%B1-%E2%80%94%E2%80%94%E3%80%8A%E9%A6%99%E6%B8%AF%E7%9A%84%E6%83%85%E4%B8%8E%E7%88%B1%E3%80%8B/" rel="next" title="钱与色到情与爱 ——《香港的情与爱》">
+      钱与色到情与爱 ——《香港的情与爱》 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8E%E4%B8%9C%E5%B8%88%E8%8C%83%E5%A4%A7%E5%AD%A6%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AD%A6%E9%99%A2%E5%AE%9E%E8%B7%B5%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">华东师范大学软件工程学院实践报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">实验过程与分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">实验结果总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E5%BD%92%E7%BA%B3"><span class="nav-number">1.4.1.</span> <span class="nav-text">结果归纳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%BE%A8%E6%9E%90"><span class="nav-number">1.4.2.</span> <span class="nav-text">问题辨析</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Arawn"
+      src="/images/avatar.webp">
+  <p class="site-author-name" itemprop="name">Arawn</p>
+  <div class="site-description" itemprop="description">美好的一天从丢大包开始</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pluseven-Sechs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pluseven-Sechs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:pluseven.Sechs@outlook.com" title="E-Mail → mailto:pluseven.Sechs@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="snow">
+    <i class="fa fa-bolt"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Arawn</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">79k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:24</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("11/15/2023 00:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+
+<script src="/js/prism/prism.js" async></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>
