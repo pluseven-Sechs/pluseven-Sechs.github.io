@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        function validateForm() {
+            const blogContent = document.forms["blogForm"]["blogcontent"].value;
+            const blogFile = document.forms["blogForm"]["blogfile"].value;
+
+            if (blogContent === "" && blogFile === "") {
+                alert("博客内容和Markdown文件必须至少填写一个！");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Publish Blog</h1>
+        <form action="uploadMd.php" method="post" enctype="multipart/form-data">
+        <label for="blogTopic">博客主题:</label>
+        <input type="text" name="blogTopic" required><br>
+        <label for="blogcontent">博客内容:</label>
+        <textarea name="blogcontent" rows="10" cols="30"></textarea><br>
+        <label for="blogfile">上传Markdown文件:</label>
+        <input type="file" name="blogfile" accept=".md"><br>
+        <input type="submit" value="发布博客">
+    </form>
+    </div>
+</body>
+
+    

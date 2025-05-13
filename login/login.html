@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login and Register</title>
+    <link rel="stylesheet" href="../css/login.css" />
+    <script src="../js/remove-login.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/jquery-2.1.4.js"></script>
+  </head>
+  <body>
+    <!-- 水波纹效果的SVG -->
+    <!-- <svg width="0" height="0">
+      <filter id="ripple-filter">
+        <feTurbulence type="fractalNoise" baseFrequency=".02" numOctaves="9" />
+        <feDisplacementMap in="SourceGraphic" scale="100" />
+      </filter>
+    </svg> -->
+    <div class="background">
+      <div class="container">
+        <!-- Sign Up -->
+        <div class="container__form container--signup">
+          <form action="register.php" method="POST" class="form" id="form1">
+            <h2 class="form__title">Sign Up</h2>
+            <label for="adminMail">adminMail:</label>
+            <input
+              type="email"
+              id="adminMail"
+              name="adminMail"
+              class="input"
+              placeholder="adminMail"
+            /><br /><br />
+            <label for="adminName">adminName:</label>
+            <input
+              type="text"
+              id="adminName"
+              name="adminName"
+              class="input"
+              placeholder="adminName"
+            /><br /><br />
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input"
+              placeholder="Password"
+            /><br /><br />
+              <input type="submit" value="Register" />
+          </form>
+        </div>
+
+        <!-- Sign In -->
+        <div class="container__form container--signin">
+          <form action="login.php" method="POST" class="form" id="form2">
+            <h2 class="form__title">Sign In</h2>
+            <label for="admin">Admin:</label>
+            <input
+              type="email"
+              id="admin"
+              name="admin"
+              class="input"
+              placeholder="Admin"
+            /><br /><br />
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input"
+              placeholder="Password"
+            /><br /><br />
+            <input type="submit" value="Login" />
+            <!-- <a href="#" class="link">Forgot your password?</a> -->
+          </form>
+        </div>
+
+        <!-- Overlay -->
+        <div class="container__overlay">
+          <div class="overlay">
+            <div class="overlay__panel overlay--left">
+              <button class="btn" id="signIn">
+                <span>Sign in</span>
+                <!-- <div class="ripple-background"></div> -->
+              </button>
+            </div>
+            <div class="overlay__panel overlay--right">
+              <button class="btn" id="signUp">
+                <span>Sign up</span>
+                <!-- <div class="ripple-background"></div> -->
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

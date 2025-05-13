@@ -1,0 +1,121 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: #f0f0f0;
+  overflow-y: auto; /* 允许页面垂直滚动 */
+}
+
+.user_background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("../img/user_index.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; /* 不重复显示背景图片 */
+  background-position: center; /* 背景图片居中显示 */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.user_background.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.user_container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.user_header {
+  flex: 0 0 250px; /* 固定宽度 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* 调整位置 */
+  overflow-y: auto; /* 允许垂直滚动 */
+}
+
+.user_blog {
+  flex: 1; /* 占据剩余空间 */
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: flex-start; /* 顶部对齐 */
+  margin: 0;
+  padding: 20px;
+  overflow-y: auto; /* 允许垂直滚动 */
+  background-color: white;
+  opacity: 0.3;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.blog-container {
+  max-width: 800px;
+  width: 100%;
+  color: #333; /* 文字颜色 */
+  font-family: 'Arial', sans-serif; /* 字体 */
+}
+
+.blog-container h2 {
+  color: #0056b3; /* 标题颜色 */
+  font-family: 'Georgia', serif; /* 标题字体 */
+}
+
+.blog-container p {
+  color: #555; /* 段落文字颜色 */
+  font-family: 'Arial', sans-serif; /* 段落字体 */
+}
+
+a.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+a.button:hover {
+  background-color: #0056b3;
+}
+
+.blog-preview {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.blog-preview h2 {
+  margin: 0 0 10px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
